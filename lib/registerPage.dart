@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class registPage extends StatefulWidget {
@@ -14,6 +15,22 @@ class _registPageState extends State<registPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  bool _isObscurePassword = true;
+  bool _isObscureConfirmPassword = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isObscurePassword = !_isObscurePassword;
+    });
+  }
+
+  void _toggleConfirmPasswordVisibility() {
+    setState(() {
+      _isObscureConfirmPassword = !_isObscureConfirmPassword;
+    });
+  }
+
   void signUserUp() async {
     showDialog(
         context: context,
@@ -24,18 +41,19 @@ class _registPageState extends State<registPage> {
         });
     try {
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
         Navigator.pop(context);
       } else {
-        print("Passwords doesn't match");
+        print('Passwords don\'t match');
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }
     Navigator.pop(context);
+
   }
 
   @override
@@ -43,23 +61,18 @@ class _registPageState extends State<registPage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child:
-              Text('Example Firebase', style: TextStyle(color: Colors.white)),
+          child: Text(
+            'Sign Up',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-        actions: [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: Color.fromRGBO(40, 84, 48, 1),
+        backgroundColor: Colors.white,
       ),
       body: Container(
         margin: EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
-              Center(
-                  child: Text(
-                'Create accout',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              )),
               SizedBox(height: 30),
               Form(
                 key: _formKey,
@@ -73,45 +86,74 @@ class _registPageState extends State<registPage> {
                         labelText: 'Email',
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอก email';
+                        if (value!.isEmpty) return 'Please enter your email';
                       },
                     ),
                     SizedBox(height: 15),
                     TextFormField(
                       controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _isObscurePassword,
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Password',
+                        suffixIcon: IconButton(
+                          onPressed: _togglePasswordVisibility,
+                          icon: Icon(
+                            _isObscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
+                        if (value!.isEmpty) return 'Please enter a password';
                       },
                     ),
                     SizedBox(height: 15),
                     TextFormField(
                       controller: confirmPasswordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _isObscureConfirmPassword,
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Confirm Password',
+                        suffixIcon: IconButton(
+                          onPressed: _toggleConfirmPasswordVisibility,
+                          icon: Icon(
+                            _isObscureConfirmPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอกรหัสยืนยัน';
+                        if (value!.isEmpty)
+                          return 'Please confirm your password';
                       },
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
-                        signUserUp();
+                        if (_formKey.currentState!.validate()) {
+                          signUserUp();
+                        }
                       },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(164, 190, 123, 1)),
+                        backgroundColor: Colors.blue,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Black to Log in',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
                     ),
                   ],
                 ),
