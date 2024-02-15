@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_application/homePage.dart';
+import 'package:study_application/loginPage.dart';
+import 'package:study_application/registerPage.dart';
 import './authPage.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0)),
                 icon: Icon(
-                  Icons.person,
+                  Icons.email,
                   size: 30,
                 ),
               ),
@@ -66,16 +68,30 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 60),
+          ElevatedButton(
+            child: Text('Log in'),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => authPage()));
+            },
+          ),
+          ElevatedButton(
+            child: Text('regisPage'),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => registPage()));
+            },
+          ),
+          ElevatedButton(
+            child: Text('Homepage'),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => homePage()));
+            },
+          ),
         ],
       )),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => homePage()));
-        },
-        label: Text('Login', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(40, 84, 48, 1),
-      ),
     );
   }
 }
