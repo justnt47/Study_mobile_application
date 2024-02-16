@@ -65,7 +65,7 @@ class _RegistPageState extends State<RegistPage> {
             );
           },
         );
-        confirmPasswordController.clear(); // เพิ่มบรรทัดนี้เพื่อล้างค่ารหัสยืนยันเมื่อไม่ตรงกัน
+        confirmPasswordController.clear(); 
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
