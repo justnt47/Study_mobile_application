@@ -28,10 +28,10 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
       appBar: AppBar(
         title: Center(
           child:
-              Text('Example Firebase', style: TextStyle(color: Colors.white)),
+              Text('Forgot your Password', style: TextStyle(color: Colors.black)),
         ),
-        actions: [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: Color.fromRGBO(40, 84, 48, 1),
+        actions: [Icon(Icons.help, color: Colors.blue)],
+        backgroundColor: Colors.white,
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -41,7 +41,7 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Enter your email to get a password reset link',
+                'Please enter the email you’d like to reset password',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -50,7 +50,7 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
                 controller: emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Your email',
+                  labelText: 'Enter email adress',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) return 'กรุณากรอก email';
@@ -66,7 +66,7 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(164, 190, 123, 1)),
+                    backgroundColor: Colors.blue),
               )
             ],
           ),
