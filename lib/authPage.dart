@@ -11,10 +11,10 @@ class authPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text('Firebase Auth', style: TextStyle(color: Colors.white)),
+          child: Text('Learning Future', style: TextStyle(color: Colors.black)),
         ),
-        actions: [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: Color.fromRGBO(40, 84, 48, 1),
+        actions: [Icon(Icons.help, color: Colors.blue)],
+        backgroundColor: Colors.white,
       ),
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
