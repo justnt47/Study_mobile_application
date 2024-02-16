@@ -1,7 +1,7 @@
 import 'package:study_application/forgotPasswordPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import './registerPage.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,15 @@ class _loginPageState extends State<loginPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
-  /* Future<UserCredential> signInWithGoogle() async {
+  void togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  /*Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -77,9 +84,8 @@ class _loginPageState extends State<loginPage> {
                     // border: Border.all(color: Colors.black),
                     color: const Color.fromARGB(255, 109, 179, 236),
                     shape: BoxShape.circle),
-                    child: Image.asset('images/Logo.png'),
+                child: Image.asset('images/Logo.png'),
               ),
-              
             ),
             SizedBox(height: 15),
             Form(
@@ -88,31 +94,44 @@ class _loginPageState extends State<loginPage> {
                 children: [
                   TextFormField(
                     maxLines: 1,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                    icon: Icon(
-                      Icons.email,
-                      size: 30,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32.0)),
+                      icon: Icon(
+                        Icons.email,
+                        size: 30,
+                      ),
                     ),
-                  ),
                     validator: (value) {
                       if (value!.isEmpty) return 'กรุณากรอก email';
                     },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    maxLines: 1, 
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                    icon: Icon(
-                      Icons.lock,
-                      size: 30,
+                    maxLines: 1,
+                    obscureText:
+                        _obscurePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      icon: Icon(
+                        Icons.lock,
+                        size: 30,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        onPressed:
+                            togglePasswordVisibility, 
+                      ),
                     ),
-                  ),
                     validator: (value) {
                       if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
                     },
@@ -129,7 +148,10 @@ class _loginPageState extends State<loginPage> {
                                     builder: (context) =>
                                         forgotPasswordPage()));
                           },
-                          child: Text('Forgot Password?', style: TextStyle(color: Colors.blue),)),
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(color: Colors.blue),
+                          )),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -143,8 +165,8 @@ class _loginPageState extends State<loginPage> {
                       'Login',
                       style: TextStyle(color: Colors.white),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   ),
                 ],
               ),
@@ -157,7 +179,7 @@ class _loginPageState extends State<loginPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // signInWithGoogle();
+                    //signInWithGoogle();
                   },
                   child: CircleAvatar(
                     radius: 20,
