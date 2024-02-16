@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:study_application/registerPage.dart';
+import './registerPage.dart';
 import 'package:flutter/material.dart';
 
 class loginPage extends StatefulWidget {
@@ -75,11 +75,11 @@ class _loginPageState extends State<loginPage> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     // border: Border.all(color: Colors.black),
-                    color: Colors.grey[100],
+                    color: const Color.fromARGB(255, 109, 179, 236),
                     shape: BoxShape.circle),
-                child: Icon(Icons.person,
-                    size: 150, color: Color.fromRGBO(95, 141, 78, 0.5)),
+                    child: Image.asset('images/Logo.png'),
               ),
+              
             ),
             SizedBox(height: 15),
             Form(
@@ -87,23 +87,32 @@ class _loginPageState extends State<loginPage> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: emailController,
-                    autofocus: true,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.mail),
-                      labelText: 'Email',
+                    maxLines: 1,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                    icon: Icon(
+                      Icons.email,
+                      size: 30,
                     ),
+                  ),
                     validator: (value) {
                       if (value!.isEmpty) return 'กรุณากรอก email';
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: 'Password',
+                    maxLines: 1, 
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                    icon: Icon(
+                      Icons.lock,
+                      size: 30,
                     ),
+                  ),
                     validator: (value) {
                       if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
                     },
@@ -120,7 +129,7 @@ class _loginPageState extends State<loginPage> {
                                     builder: (context) =>
                                         forgotPasswordPage()));
                           },
-                          child: Text('Forgot Password?')),
+                          child: Text('Forgot Password?', style: TextStyle(color: Colors.blue),)),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -135,7 +144,7 @@ class _loginPageState extends State<loginPage> {
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(164, 190, 123, 1)),
+                        backgroundColor: Colors.blue),
                   ),
                 ],
               ),
@@ -153,7 +162,7 @@ class _loginPageState extends State<loginPage> {
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: Color.fromRGBO(229, 217, 182, 1),
-                    child: Icon(Icons.mail_outline, color: Colors.white),
+                    child: Icon(Icons.mail, color: Colors.white),
                   ),
                 ),
                 SizedBox(width: 10),
@@ -181,7 +190,7 @@ class _loginPageState extends State<loginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => registPage()));
+                              builder: (context) => RegistPage()));
                     },
                     child: Text('Register now'),
                   ),
