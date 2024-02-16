@@ -1,41 +1,76 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class registPage extends StatefulWidget {
-  const registPage({super.key});
+class RegistPage extends StatefulWidget {
+  const RegistPage({Key? key}) : super(key: key);
 
   @override
-  State<registPage> createState() => _registPageState();
+  State<RegistPage> createState() => _RegistPageState();
 }
 
-class _registPageState extends State<registPage> {
+class _RegistPageState extends State<RegistPage> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
+  void togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    setState(() {
+      _obscureConfirmPassword = !_obscureConfirmPassword;
+    });
+  }
+
   void signUserUp() async {
     showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     try {
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
         Navigator.pop(context);
       } else {
-        print("Passwords doesn't match");
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text("Passwords don't match"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+        confirmPasswordController.clear(); // เพิ่มบรรทัดนี้เพื่อล้างค่ารหัสยืนยันเมื่อไม่ตรงกัน
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
+      Navigator.pop(context);
     }
-    Navigator.pop(context);
   }
 
   @override
@@ -43,23 +78,19 @@ class _registPageState extends State<registPage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child:
-              Text('Example Firebase', style: TextStyle(color: Colors.white)),
+          child: Text(
+            'Sign Up',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         actions: [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: Color.fromRGBO(40, 84, 48, 1),
+        backgroundColor: Colors.white,
       ),
       body: Container(
         margin: EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
-              Center(
-                  child: Text(
-                'Create accout',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              )),
               SizedBox(height: 30),
               Form(
                 key: _formKey,
@@ -73,45 +104,60 @@ class _registPageState extends State<registPage> {
                         labelText: 'Email',
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอก email';
+                        if (value!.isEmpty) return 'Please enter an email';
                       },
                     ),
                     SizedBox(height: 15),
                     TextFormField(
                       controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _obscurePassword,
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: togglePasswordVisibility,
+                        ),
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
+                        if (value!.isEmpty) return 'Please enter a password';
                       },
                     ),
                     SizedBox(height: 15),
                     TextFormField(
                       controller: confirmPasswordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _obscureConfirmPassword,
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Confirm Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(_obscureConfirmPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: toggleConfirmPasswordVisibility,
+                        ),
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอกรหัสยืนยัน';
+                        if (value!.isEmpty)
+                          return 'Please enter a confirm password';
                       },
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
-                        signUserUp();
+                        if (_formKey.currentState!.validate()) {
+                          signUserUp();
+                        }
                       },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(164, 190, 123, 1)),
+                        backgroundColor: Colors.blue,
+                      ),
                     ),
                   ],
                 ),
