@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:study_application/homePage.dart';
-import 'package:study_application/loginPage.dart';
-import 'package:study_application/registerPage.dart';
-import './authPage.dart';
 import 'package:flutter/material.dart';
+
+import './homePage.dart';
+import './loginPage.dart';
+import './registerPage.dart';
+import './authPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
             child: Text('regisPage'),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => registPage()));
+                  MaterialPageRoute(builder: (context) => RegistPage()));
             },
           ),
           ElevatedButton(

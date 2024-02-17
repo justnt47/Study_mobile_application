@@ -1,10 +1,10 @@
-import 'package:study_application/forgotPasswordPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-import './registerPage.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+
+import './forgotPasswordPage.dart';
+import './registerPage.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -110,8 +110,7 @@ class _loginPageState extends State<loginPage> {
                   SizedBox(height: 20),
                   TextFormField(
                     maxLines: 1,
-                    obscureText:
-                        _obscurePassword,
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       labelText: "Password",
                       border: OutlineInputBorder(
@@ -128,8 +127,7 @@ class _loginPageState extends State<loginPage> {
                               : Icons.visibility,
                           color: Colors.grey,
                         ),
-                        onPressed:
-                            togglePasswordVisibility, 
+                        onPressed: togglePasswordVisibility,
                       ),
                     ),
                     validator: (value) {
