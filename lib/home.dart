@@ -23,34 +23,70 @@ class _homeState extends State<home> {
       body: Container(
         height: size.height,
         width: size.width,
-        child: Column(children: [Container(
-          height: size.height * 0.35,
-          width: size.width,
-          child: Carousel(
-            indicatorBarColor: Colors.black.withOpacity(0.2),
-            autoScrollDuration: Duration(seconds: 2),
-            animationPageDuration: Duration(milliseconds: 400),
-            activateIndicatorColor: Colors.black,
-            animationPageCurve: Curves.bounceInOut,
-            indicatorBarHeight: 50,
-            indicatorHeight: 20,
-            indicatorWidth: 20,
-            unActivatedIndicatorColor: Colors.grey,
-            stopAtEnd: true,
-            autoScroll: true,
-            items: [
-              Container(
-                child: Image.asset('images/anime1.jpg', fit: BoxFit.cover,),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                height: size.height * 0.35,
+                width: size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20), 
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Carousel(
+                  indicatorBarColor: Colors.black.withOpacity(0.2),
+                  autoScrollDuration: Duration(seconds: 2),
+                  animationPageDuration: Duration(milliseconds: 400),
+                  activateIndicatorColor: Colors.white, 
+                  animationPageCurve: Curves.easeInOut, 
+                  indicatorBarHeight: 50,
+                  indicatorHeight: 20,
+                  indicatorWidth: 20,
+                  unActivatedIndicatorColor: Colors.grey.withOpacity(0.5), 
+                  stopAtEnd: true,
+                  autoScroll: true,
+                  items: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20), 
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset('images/anime1.jpg', fit: BoxFit.cover,),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset('images/anime2.jpg', fit: BoxFit.cover,),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset('images/anime3.jpg', fit: BoxFit.cover,),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Container(
-                child: Image.asset('images/anime2.jpg',fit: BoxFit.cover,),
-              ),
-              Container(
-                child: Image.asset('images/anime3.jpg',fit: BoxFit.cover,),
-              )
-            ],
-          ),
-        )]),
+            ),
+          ],
+        ),
       ),
     );
   }
