@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import './bookMarkPage.dart';
 import './loginPage.dart';
 import './main.dart';
 import './home.dart';
 import './accPage.dart';
+import './lessonPage.dart';
 
 class homePage extends StatefulWidget {
   homePage({super.key});
@@ -19,7 +21,8 @@ class _homePageState extends State<homePage> {
   //------ หน้าจอแต่ละหน้า ------
   final mobileScreens = [
     home(),
-    // search(),
+    lesson(),
+    bookmark(),
     acc(),
   ];
   @override
@@ -67,10 +70,16 @@ class _homePageState extends State<homePage> {
                   // color: Colors.white,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    screenIndex = 2;
+                  });
+                },
                 icon: Icon(
                   Icons.book,
-                  color: Colors.white,
+                  color: screenIndex == 2
+                      ? Color.fromRGBO(238, 224, 201, 1)
+                      : Colors.white,
                 )),
             IconButton(
                 onPressed: () {

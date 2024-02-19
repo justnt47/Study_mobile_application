@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:study_application/loginPage.dart';
-import 'package:study_application/main.dart';
 
-class acc extends StatefulWidget {
-  acc({super.key});
+class bookmark extends StatefulWidget {
+  bookmark({super.key});
 
   @override
-  State<acc> createState() => _accState();
+  State<bookmark> createState() => _bookmarkState();
 }
 
-class _accState extends State<acc> {
+class _bookmarkState extends State<bookmark> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +20,12 @@ class _accState extends State<acc> {
                 height: 290,
               ),
               Text(
-                "This is Account Page",
+                "This is bookmark Page",
                 style: TextStyle(fontSize: 50),
               ),
               IconButton(
                   onPressed: () {
-                    main();
+                    loginPage();
                   },
                   icon: Icon(Icons.logout)),
             ],

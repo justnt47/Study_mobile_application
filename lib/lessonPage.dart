@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:study_application/loginPage.dart';
 import 'package:study_application/main.dart';
 
-class acc extends StatefulWidget {
-  acc({super.key});
+class lesson extends StatefulWidget {
+  lesson({super.key});
 
   @override
-  State<acc> createState() => _accState();
+  State<lesson> createState() => _lessonState();
 }
 
-class _accState extends State<acc> {
+class _lessonState extends State<lesson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _accState extends State<acc> {
                 height: 290,
               ),
               Text(
-                "This is Account Page",
+                "This is lesson Page",
                 style: TextStyle(fontSize: 50),
               ),
               IconButton(
