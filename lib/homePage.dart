@@ -89,7 +89,7 @@ class _homePageState extends State<homePage> {
                 },
                 icon: Icon(
                   Icons.person,
-                  color: screenIndex == 1
+                  color: screenIndex == 3
                       ? Color.fromRGBO(238, 224, 201, 1)
                       : Colors.white,
                 )),
