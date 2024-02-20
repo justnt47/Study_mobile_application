@@ -52,7 +52,7 @@ class _homeState extends State<home> {
                   indicatorWidth: 20,
                   unActivatedIndicatorColor: Colors.grey.withOpacity(0.5), 
                   stopAtEnd: true,
-                  autoScroll: true,
+                  autoScroll: false,
                   items: [
                     Container(
                       decoration: BoxDecoration(
@@ -80,11 +80,13 @@ class _homeState extends State<home> {
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset('images/anime3.jpg', fit: BoxFit.cover,),
                       ),
-                    ),
+                    ),                   
                   ],
                 ),
               ),
             ),
+            SizedBox(height: 20),
+            Text('แนะนำคอร์สเรียน', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
           ],
         ),
       ),
