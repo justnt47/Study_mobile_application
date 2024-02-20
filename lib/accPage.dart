@@ -25,7 +25,10 @@ class _accState extends State<acc> {
                     child: Image.asset(
                   "images/Image_Not_found.jpg",
                   height: 160,
-                ) /* Text("data") */)
+                )),
+                Text("FirstName LastName",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ],
             ),
             Text(

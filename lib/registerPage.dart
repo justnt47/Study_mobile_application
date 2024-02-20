@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegistPage extends StatefulWidget {
   const RegistPage({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _RegistPageState extends State<RegistPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final fnameController = TextEditingController();
+  final lnameController = TextEditingController();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -65,7 +68,7 @@ class _RegistPageState extends State<RegistPage> {
             );
           },
         );
-        confirmPasswordController.clear(); 
+        confirmPasswordController.clear();
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -149,6 +152,7 @@ class _RegistPageState extends State<RegistPage> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           signUserUp();
+                          Navigator.pop(context);
                         }
                       },
                       child: Text(

@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.21",
+      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.22",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -30,6 +30,24 @@
       "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "cloud_firestore",
+      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore-4.15.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "cloud_firestore_platform_interface",
+      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_platform_interface-6.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "cloud_firestore_web",
+      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_web-3.10.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "collection",
@@ -230,7 +248,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-02-19T08:42:10.931256Z",
+  "generated": "2024-02-20T07:36:36.074111Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }
