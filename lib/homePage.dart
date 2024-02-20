@@ -75,7 +75,7 @@ class _homePageState extends State<homePage> {
                   });
                 },
                 icon: Icon(
-                  Icons.book,
+                  Icons.bookmark,
                   color: screenIndex == 2
                       ? Color.fromRGBO(238, 224, 201, 1)
                       : Colors.white,
