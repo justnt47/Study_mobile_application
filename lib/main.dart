@@ -26,49 +26,6 @@ class MyApp extends StatelessWidget {
       body: Center(
           child: Column(
         children: [
-          SizedBox(
-            height: 60,
-          ),
-          Text(
-            'Welcome!',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 180,
-          ),
-          SizedBox(
-            width: 385,
-            child: TextFormField(
-              maxLines: 1, //limit line to show data
-              decoration: InputDecoration(
-                labelText: "Email",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-                icon: Icon(
-                  Icons.email,
-                  size: 30,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            width: 385,
-            child: TextFormField(
-              maxLines: 1, //limit line to show data
-              decoration: InputDecoration(
-                labelText: "Password",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-                icon: Icon(
-                  Icons.lock,
-                  size: 30,
-                ),
-              ),
-            ),
-          ),
           SizedBox(height: 60),
           ElevatedButton(
             child: Text('Log in'),

@@ -14,23 +14,30 @@ class _accState extends State<acc> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 290,
-              ),
-              Text(
-                "This is Account Page",
-                style: TextStyle(fontSize: 50),
-              ),
-              IconButton(
-                  onPressed: () {
-                    main();
-                  },
-                  icon: Icon(Icons.logout)),
-            ],
-          ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100,
+            ),
+            Row(
+              children: [
+                Container(
+                    child: Image.asset(
+                  "images/Image_Not_found.jpg",
+                  height: 160,
+                ) /* Text("data") */)
+              ],
+            ),
+            Text(
+              "This is Account Page",
+              style: TextStyle(fontSize: 50),
+            ),
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.logout)),
+          ],
         ),
       ),
     );

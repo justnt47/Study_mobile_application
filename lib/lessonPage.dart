@@ -21,12 +21,12 @@ class _lessonState extends State<lesson> {
                 height: 290,
               ),
               Text(
-                "This is lesson Page",
+                "This is My lesson Page",
                 style: TextStyle(fontSize: 50),
               ),
               IconButton(
                   onPressed: () {
-                    main();
+                    Navigator.pop(context);
                   },
                   icon: Icon(Icons.logout)),
             ],

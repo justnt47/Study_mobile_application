@@ -25,7 +25,7 @@ class _bookmarkState extends State<bookmark> {
               ),
               IconButton(
                   onPressed: () {
-                    loginPage();
+                    Navigator.pop(context);
                   },
                   icon: Icon(Icons.logout)),
             ],
