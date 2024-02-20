@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_application/loginPage.dart';
 import 'package:study_application/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class acc extends StatefulWidget {
   acc({super.key});
@@ -10,6 +11,8 @@ class acc extends StatefulWidget {
 }
 
 class _accState extends State<acc> {
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +29,40 @@ class _accState extends State<acc> {
                   "images/Image_Not_found.jpg",
                   height: 160,
                 )),
-                Text("FirstName LastName",
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                Column(
+                  children: [
+                    Text("FirstName LastName",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
+                    Text("${user!.email}"),
+                  ],
+                ),
               ],
             ),
-            Text(
-              "This is Account Page",
-              style: TextStyle(fontSize: 50),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text(
+                "Setting",
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                  letterSpacing: 0,
+                ),
+              ),
+              onTap: () => true,
             ),
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.logout)),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(
+                "Logout",
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                  letterSpacing: 0,
+                ),
+              ),
+              onTap: () => Navigator.pop(context),
+            ),
           ],
         ),
       ),

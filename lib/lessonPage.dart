@@ -24,11 +24,6 @@ class _lessonState extends State<lesson> {
                 "This is My lesson Page",
                 style: TextStyle(fontSize: 50),
               ),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.logout)),
             ],
           ),
         ),

@@ -23,11 +23,6 @@ class _bookmarkState extends State<bookmark> {
                 "This is bookmark Page",
                 style: TextStyle(fontSize: 50),
               ),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.logout)),
             ],
           ),
         ),
