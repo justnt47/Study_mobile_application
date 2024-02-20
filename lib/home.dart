@@ -10,6 +10,13 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  List<String> courses = [
+    'เริ่มต้น Flutter',
+    'ขั้นพื้นฐานการออกแบบ UI ด้วย Flutter',
+    'การจัดสถานะใน Flutter',
+  ];
+  String? selectedCourse;
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,7 +38,7 @@ class _homeState extends State<home> {
                 height: size.height * 0.35,
                 width: size.width,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), 
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
@@ -45,22 +52,25 @@ class _homeState extends State<home> {
                   indicatorBarColor: Colors.black.withOpacity(0.2),
                   autoScrollDuration: Duration(seconds: 2),
                   animationPageDuration: Duration(milliseconds: 400),
-                  activateIndicatorColor: Colors.white, 
-                  animationPageCurve: Curves.easeInOut, 
+                  activateIndicatorColor: Colors.white,
+                  animationPageCurve: Curves.easeInOut,
                   indicatorBarHeight: 50,
                   indicatorHeight: 20,
                   indicatorWidth: 20,
-                  unActivatedIndicatorColor: Colors.grey.withOpacity(0.5), 
+                  unActivatedIndicatorColor: Colors.grey.withOpacity(0.5),
                   stopAtEnd: true,
                   autoScroll: false,
                   items: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20), 
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset('images/anime1.jpg', fit: BoxFit.cover,),
+                        child: Image.asset(
+                          'images/anime1.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Container(
@@ -69,7 +79,10 @@ class _homeState extends State<home> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset('images/anime2.jpg', fit: BoxFit.cover,),
+                        child: Image.asset(
+                          'images/anime2.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Container(
@@ -78,15 +91,40 @@ class _homeState extends State<home> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset('images/anime3.jpg', fit: BoxFit.cover,),
+                        child: Image.asset(
+                          'images/anime3.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),                   
+                    ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 20),
-            Text('แนะนำคอร์สเรียน', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+            Text('แนะนำคอร์สเรียน',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: courses.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(courses[index]),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        selectedCourse = courses[index];
+                        print('สมัครคอร์สเรียน: ${courses[index]}');
+                      });
+                    },
+                    child: Text('เริ่มเรียนคอร์สนี้',
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold)),
+                  ),
+                );
+              },
+            ),        
           ],
         ),
       ),
