@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_application/accPage.dart';
+import 'package:study_application/firebase.dart';
+
+import './firebase.dart';
 
 class RegistPage extends StatefulWidget {
   const RegistPage({Key? key}) : super(key: key);
@@ -15,8 +21,7 @@ class _RegistPageState extends State<RegistPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  final fnameController = TextEditingController();
-  final lnameController = TextEditingController();
+  final userNameController = TextEditingController();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -48,15 +53,15 @@ class _RegistPageState extends State<RegistPage> {
           email: emailController.text,
           password: passwordController.text,
         );
+        userSetup(userNameController.text);
         Navigator.pop(context);
       } else {
-        Navigator.pop(context);
         showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text('Error'),
-              content: Text("Passwords don't match"),
+              content: Text("Passwords don\'t match"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -99,6 +104,18 @@ class _RegistPageState extends State<RegistPage> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    TextFormField(
+                      controller: userNameController,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Username',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) return 'Please enter an Username';
+                      },
+                    ),
+                    SizedBox(height: 15),
                     TextFormField(
                       controller: emailController,
                       autofocus: true,

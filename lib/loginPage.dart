@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
 import './forgotPasswordPage.dart';
@@ -26,7 +26,7 @@ class _loginPageState extends State<loginPage> {
     });
   }
 
-  /*Future<UserCredential> signInWithGoogle() async {
+  Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -42,7 +42,7 @@ class _loginPageState extends State<loginPage> {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
-  } */
+  }
 
   void signUserIn() async {
     showDialog(
@@ -93,29 +93,24 @@ class _loginPageState extends State<loginPage> {
               child: Column(
                 children: [
                   TextFormField(
-                    maxLines: 1,
+                    controller: emailController,
+                    autofocus: true,
                     decoration: InputDecoration(
-                      labelText: "Email",
+                      icon: Icon(Icons.mail),
+                      labelText: 'Email',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.0)),
-                      icon: Icon(
-                        Icons.email,
-                        size: 30,
+                        borderRadius: BorderRadius.circular(32.0),
                       ),
                     ),
                     validator: (value) {
-                      if (value!.isEmpty) return 'กรุณากรอก email';
+                      if (value!.isEmpty) return 'Please enter your email';
                     },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    maxLines: 1,
                     obscureText: _obscurePassword,
+                    controller: passwordController,
                     decoration: InputDecoration(
-                      labelText: "Password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
                       icon: Icon(
                         Icons.lock,
                         size: 30,
@@ -129,9 +124,13 @@ class _loginPageState extends State<loginPage> {
                         ),
                         onPressed: togglePasswordVisibility,
                       ),
+                      labelText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
                     ),
                     validator: (value) {
-                      if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
+                      if (value!.isEmpty) return 'Please enter your Password';
                     },
                   ),
                   SizedBox(height: 10),
@@ -177,12 +176,12 @@ class _loginPageState extends State<loginPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    //signInWithGoogle();
+                    signInWithGoogle();
                   },
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: Color.fromRGBO(229, 217, 182, 1),
-                    child: Icon(Icons.mail, color: Colors.white),
+                    child: Icon(Icons.mail_outline, color: Colors.white),
                   ),
                 ),
                 SizedBox(width: 10),

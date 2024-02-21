@@ -12,6 +12,18 @@ class acc extends StatefulWidget {
 
 class _accState extends State<acc> {
   final user = FirebaseAuth.instance.currentUser;
+  // var userEmail = "ThisIsdemoemail@test.com";
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+  ShowUserEmail() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      return Text("${user!.email}");
+    } else {
+      return Text("ThisIsDemoEmail@test.com");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +46,7 @@ class _accState extends State<acc> {
                     Text("FirstName LastName",
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold)),
-                    Text("${user!.email}"),
+                    ShowUserEmail(),
                   ],
                 ),
               ],
@@ -61,7 +73,11 @@ class _accState extends State<acc> {
                   letterSpacing: 0,
                 ),
               ),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                signUserOut();
+                Navigator.pop(context);
+              },
+              // onTap: () => Navigator.pop(context),
             ),
           ],
         ),
