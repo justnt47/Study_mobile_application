@@ -113,7 +113,6 @@ class _loginPageState extends State<loginPage> {
                     decoration: InputDecoration(
                       icon: Icon(
                         Icons.lock,
-                        size: 30,
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
