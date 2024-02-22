@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_application/loginPage.dart';
-import 'package:study_application/main.dart';
+import 'package:test_any_code/loginPage.dart';
+import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class acc extends StatefulWidget {
@@ -12,7 +12,6 @@ class acc extends StatefulWidget {
 
 class _accState extends State<acc> {
   final user = FirebaseAuth.instance.currentUser;
-  // var userEmail = "ThisIsdemoemail@test.com";
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -75,7 +74,7 @@ class _accState extends State<acc> {
               ),
               onTap: () {
                 signUserOut();
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               // onTap: () => Navigator.pop(context),
             ),

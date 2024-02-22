@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_application/loginPage.dart';
+import 'package:test_any_code/loginPage.dart';
 
 class bookmark extends StatefulWidget {
   bookmark({super.key});
