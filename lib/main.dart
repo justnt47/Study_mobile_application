@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_any_code/accPage.dart';
 
 import './homePage.dart';
 import './loginPage.dart';
@@ -13,7 +14,7 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    home: authPage(),
   ));
 }
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       body: Center(
           child: Column(
         children: [
-          SizedBox(height: 60),
+          /* SizedBox(height: 60),
           ElevatedButton(
             child: Text('Log in'),
             onPressed: () {
@@ -40,14 +41,14 @@ class MyApp extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => RegistPage()));
             },
-          ),
-          ElevatedButton(
+          ), */
+          /* ElevatedButton(
             child: Text('Homepage'),
             onPressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => homePage()));
             },
-          ),
+          ), */
         ],
       )),
     );

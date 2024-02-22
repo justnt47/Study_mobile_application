@@ -69,8 +69,8 @@ class _loginPageState extends State<loginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
+    return Scaffold(
+      body: Container(
         margin: EdgeInsets.all(20),
         child: Column(
           children: [

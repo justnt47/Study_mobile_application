@@ -1,6 +1,6 @@
 {
-    "name": "study_application",
-    "short_name": "study_application",
+    "name": "test_any_code",
+    "short_name": "test_any_code",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

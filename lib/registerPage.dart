@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_application/accPage.dart';
-import 'package:study_application/firebase.dart';
+import 'package:test_any_code/accPage.dart';
+import 'package:test_any_code/firebase.dart';
 
 import './firebase.dart';
 

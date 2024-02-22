@@ -48,8 +48,8 @@ file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.17.4/
 file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.17.4/lib/
 firebase_auth_platform_interface
 2.18
-file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.1.4/
-file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.1.4/lib/
+file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.1.5/
+file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.1.5/lib/
 firebase_auth_web
 3.2
 file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.9.4/
@@ -170,10 +170,6 @@ web
 3.2
 file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.3.0/
 file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.3.0/lib/
-study_application
-3.2
-file:///C:/Users/NT/Documents/GitHub/study_mobile_application/
-file:///C:/Users/NT/Documents/GitHub/study_mobile_application/lib/
 sky_engine
 3.2
 file:///C:/flutter/flutter_windows_3.16.3-stable/flutter/bin/cache/pkg/sky_engine/
@@ -190,4 +186,8 @@ flutter_web_plugins
 3.2
 file:///C:/flutter/flutter_windows_3.16.3-stable/flutter/packages/flutter_web_plugins/
 file:///C:/flutter/flutter_windows_3.16.3-stable/flutter/packages/flutter_web_plugins/lib/
+test_any_code
+3.2
+file:///D:/work_flutter/test_any_code/
+file:///D:/work_flutter/test_any_code/lib/
 2

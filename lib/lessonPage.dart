@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_application/loginPage.dart';
-import 'package:study_application/main.dart';
+import 'package:test_any_code/loginPage.dart';
+import 'package:test_any_code/main.dart';
 
 class lesson extends StatefulWidget {
   lesson({super.key});
