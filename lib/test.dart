@@ -6,30 +6,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class acc extends StatefulWidget {
-  acc({super.key});
+class MyTest extends StatefulWidget {
+  const MyTest({super.key});
 
   @override
-  State<acc> createState() => _accState();
+  State<MyTest> createState() => _MyTestState();
 }
 
-class _accState extends State<acc> {
-  final user = FirebaseAuth.instance.currentUser;
-  final auth = FirebaseAuth.instance;
-  CollectionReference userCollection =
+class _MyTestState extends State<MyTest> {
+  CollectionReference topicCollection =
       FirebaseFirestore.instance.collection("Users");
-  // CollectionReference userName = FirebaseFirestore.instance.collection("Users").where("uid", isEqualTo: user.uid);
+  final user = FirebaseAuth.instance.currentUser;
+
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
 
   ShowUserEmail() {
     if (FirebaseAuth.instance.currentUser != null) {
-      return Text("${user!.email}");
+      return Column(
+        children: [
+          Text("${user?.email}"),
+          // Text("${user?.uid}"),
+        ],
+      );
     } else {
       return Text("ThisIsDemoEmail@test.com");
     }
   }
+
+  int screenIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +48,7 @@ class _accState extends State<acc> {
             height: 160,
           )),
           StreamBuilder(
-              stream: userCollection
+              stream: topicCollection
                   .where("uid", isEqualTo: user?.uid.toString())
                   .snapshots(),
               builder: (context, snapshot) {
