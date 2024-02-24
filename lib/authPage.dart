@@ -12,13 +12,13 @@ class authPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: Center(
           child: Text('Learning Future', style: TextStyle(color: Colors.black)),
         ),
         actions: [Icon(Icons.help, color: Colors.blue)],
         backgroundColor: Colors.white,
-      ),
+      ), */
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {

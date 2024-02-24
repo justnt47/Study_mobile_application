@@ -20,12 +20,12 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Center(
           child: Text('LEARNING FUTURE', style: TextStyle(color: Colors.black)),
         ),
-      ),
+      ), */
       body: Container(
         height: size.height,
         width: size.width,
@@ -33,7 +33,7 @@ class _homeState extends State<home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             Container(
               height: size.height * 0.25,
               width: size.width,
@@ -108,6 +108,7 @@ class _homeState extends State<home> {
                     elevation: 3,
                     margin: EdgeInsets.only(bottom: 20),
                     child: ListTile(
+                      tileColor: Colors.white,
                       title: Text(
                         courses[index],
                         style: TextStyle(

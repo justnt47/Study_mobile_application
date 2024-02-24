@@ -31,7 +31,7 @@ class _homePageState extends State<homePage> {
       bottomNavigationBar: Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 134, 91, 73),
+          color: Colors.blue,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -49,9 +49,10 @@ class _homePageState extends State<homePage> {
                 },
                 icon: Icon(
                   Icons.home,
+                  size: 35,
                   //------ ถ้า Index = 0 ให้ไอคอนสีเหลือง ถ้าไม่ใช้ไอคอนสีขาว ------
                   color: screenIndex == 0
-                      ? Color.fromRGBO(238, 224, 201, 1)
+                      ? Color.fromRGBO(214, 214, 214, 1)
                       : Colors.white,
                   // color: Colors.white,
                 )),
@@ -63,8 +64,9 @@ class _homePageState extends State<homePage> {
                 },
                 icon: Icon(
                   Icons.menu_book_sharp,
+                  size: 35,
                   color: screenIndex == 1
-                      ? Color.fromRGBO(238, 224, 201, 1)
+                      ? Color.fromRGBO(214, 214, 214, 1)
                       : Colors.white,
                   // color: Colors.white,
                 )),
@@ -76,8 +78,9 @@ class _homePageState extends State<homePage> {
                 },
                 icon: Icon(
                   Icons.bookmark,
+                  size: 35,
                   color: screenIndex == 2
-                      ? Color.fromRGBO(238, 224, 201, 1)
+                      ? Color.fromRGBO(214, 214, 214, 1)
                       : Colors.white,
                 )),
             IconButton(
@@ -88,8 +91,9 @@ class _homePageState extends State<homePage> {
                 },
                 icon: Icon(
                   Icons.person,
+                  size: 35,
                   color: screenIndex == 3
-                      ? Color.fromRGBO(238, 224, 201, 1)
+                      ? Color.fromRGBO(214, 214, 214, 1)
                       : Colors.white,
                 )),
           ],

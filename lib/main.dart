@@ -14,6 +14,10 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      scaffoldBackgroundColor:
+          Color.fromARGB(255, 245, 245, 245), //<-- SEE HERE
+    ),
     home: authPage(),
   ));
 }

@@ -36,6 +36,7 @@ class _accState extends State<acc> {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(height: 40),
           Container(
               child: Image.asset(
             "images/Image_Not_found.jpg",

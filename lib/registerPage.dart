@@ -84,17 +84,10 @@ class _RegistPageState extends State<RegistPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Sign Up',
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        actions: [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromRGBO(255, 245, 245, 245),
       ),
       body: Container(
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.only(top: 20, right: 30, left: 30),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -107,6 +100,8 @@ class _RegistPageState extends State<RegistPage> {
                       controller: userNameController,
                       autofocus: true,
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 255, 255, 255),
                         border: OutlineInputBorder(),
                         labelText: 'Username',
                       ),
@@ -119,6 +114,8 @@ class _RegistPageState extends State<RegistPage> {
                       controller: emailController,
                       autofocus: true,
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 255, 255, 255),
                         border: OutlineInputBorder(),
                         labelText: 'Email',
                       ),
@@ -131,12 +128,14 @@ class _RegistPageState extends State<RegistPage> {
                       controller: passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 255, 255, 255),
                         border: OutlineInputBorder(),
                         labelText: 'Password',
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                              ? Icons.visibility_off
+                              : Icons.visibility),
                           onPressed: togglePasswordVisibility,
                         ),
                       ),
@@ -149,12 +148,14 @@ class _RegistPageState extends State<RegistPage> {
                       controller: confirmPasswordController,
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 255, 255, 255),
                         border: OutlineInputBorder(),
                         labelText: 'Confirm Password',
                         suffixIcon: IconButton(
                           icon: Icon(_obscureConfirmPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                              ? Icons.visibility_off
+                              : Icons.visibility),
                           onPressed: toggleConfirmPasswordVisibility,
                         ),
                       ),

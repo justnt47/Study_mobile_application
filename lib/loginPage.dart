@@ -73,7 +73,7 @@ class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.only(top: 20, right: 30, left: 30),
         child: Column(
           children: [
             Center(
@@ -98,10 +98,13 @@ class _loginPageState extends State<loginPage> {
                     controller: emailController,
                     autofocus: true,
                     decoration: InputDecoration(
-                      icon: Icon(Icons.mail),
+                      constraints: BoxConstraints(maxHeight: 60),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 255, 255, 255),
+                      prefix: Icon(Icons.mail),
                       labelText: 'Email',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
                     validator: (value) {
@@ -113,7 +116,10 @@ class _loginPageState extends State<loginPage> {
                     obscureText: _obscurePassword,
                     controller: passwordController,
                     decoration: InputDecoration(
-                      icon: Icon(
+                      constraints: BoxConstraints(maxHeight: 60),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 255, 255, 255),
+                      prefix: Icon(
                         Icons.lock,
                       ),
                       suffixIcon: IconButton(
@@ -127,7 +133,7 @@ class _loginPageState extends State<loginPage> {
                       ),
                       labelText: 'Password',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
                     validator: (value) {
@@ -161,10 +167,16 @@ class _loginPageState extends State<loginPage> {
                     },
                     child: Text(
                       'Login',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 150, vertical: 16),
+                    ),
                   ),
                 ],
               ),
