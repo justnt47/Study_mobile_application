@@ -32,10 +32,6 @@ class _homePageState extends State<homePage> {
         height: 60,
         decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

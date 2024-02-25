@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 class MyTest extends StatefulWidget {
   const MyTest({super.key});
@@ -37,83 +39,145 @@ class _MyTestState extends State<MyTest> {
 
   int screenIndex = 0;
 
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-              child: Image.asset(
-            "images/Image_Not_found.jpg",
-            height: 160,
-          )),
-          StreamBuilder(
-              stream: topicCollection
-                  .where("uid", isEqualTo: user?.uid.toString())
-                  .snapshots(),
-              builder: (context, snapshot) {
-                // print(
-                //     "${FirebaseFirestore.instance.collection("Users")} print is here ///////////////");
-                // print(user?.uid.toString());
-                // print(
-                //     "${FirebaseFirestore.instance.collection("displayName").where("uid", isEqualTo: user?.uid).snapshots()} print is here ///////////////");
-                // print(
-                //     "${FirebaseFirestore.instance.collection("uid").where("uid", isEqualTo: "QEMYbhzDhqSIcviYCpVJ2Pq6B3H2").snapshots()} print is here ///////////////");
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    itemBuilder: ((context, index) {
-                      var topicIndex = snapshot.data!.docs[index];
-                      return GestureDetector(
-                          //--- เมื่อคลิกที่ข้อมูล title ที่ดึงมาให้แสดง popup เพื่อแสดงรายละเอียด ---
-                          onTap: () {
-                            //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                            //showDetail(topicIndex);
-                          },
-                          child: Column(
-                            children: [
-                              Text(topicIndex['displayName']),
-                              ShowUserEmail(),
-                            ],
-                          ));
-                    }),
-                  );
-
-                  //-------- ถ้าไม่มีข้อมูลในฐานข้อมูลให้แสดงคำว่า 'No data' --------
-                } else {
-                  return Center(child: Text('No data'));
-                }
-              }),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text(
-              "Setting",
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-                letterSpacing: 0,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.purple,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                'Create Better',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold),
               ),
             ),
-            onTap: () => true,
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              "Logout",
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-                letterSpacing: 0,
+            const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum',
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
-            onTap: () {
-              signUserOut();
-              // Navigator.pop(context);
-            },
-            // onTap: () => Navigator.pop(context),
-          ),
-        ],
+            const Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0)),
+                      const Text(
+                        'Sign in',
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0)),
+                      const Text(
+                        "Email",
+                        style: TextStyle(fontSize: 18.0, color: Colors.black),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(10),
+                          hintText: "Example.mail.com",
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                            fontSize: 16.0,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
+                      const Text(
+                        "Password",
+                        style: TextStyle(fontSize: 18.0, color: Colors.black),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(10),
+                          hintText: "",
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                            fontSize: 16.0,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
+                      MaterialButton(
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "LOGIN",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        color: Colors.black,
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.0)),
+                      const Center(child: Text("Forgot Password")),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
+                      ListTile(
+                        leading: Icon(Icons.logout),
+                        title: Text(
+                          "Logout",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black,
+                            letterSpacing: 0,
+                          ),
+                        ),
+                        onTap: () {
+                          // signUserOut();
+                          Navigator.pop(context);
+                        },
+                        // onTap: () => Navigator.pop(context),
+                      ),
+                      const Spacer(),
+                      const Center(child: Text("Create new account")),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

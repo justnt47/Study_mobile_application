@@ -27,11 +27,9 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child:
-              Text('Forgot your Password', style: TextStyle(color: Colors.black)),
+          child: Text('Forgot your Password',
+              style: TextStyle(color: Colors.black)),
         ),
-        actions: [Icon(Icons.help, color: Colors.blue)],
-        backgroundColor: Colors.white,
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -65,8 +63,7 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
                   'Reset Password',
                   style: TextStyle(color: Colors.white),
                 ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               )
             ],
           ),
