@@ -38,146 +38,100 @@ class _MyTestState extends State<MyTest> {
   }
 
   int screenIndex = 0;
-
+  CollectionReference lessonCollection =
+      FirebaseFirestore.instance.collection("lessons");
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.purple,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                'Create Better',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 38,
-                    fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text(
+              "Logout",
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.black,
+                letterSpacing: 0,
               ),
             ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0)),
-                      const Text(
-                        'Sign in',
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0)),
-                      const Text(
-                        "Email",
-                        style: TextStyle(fontSize: 18.0, color: Colors.black),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.all(10),
-                          hintText: "Example.mail.com",
-                          hintStyle: TextStyle(
-                            color: Colors.black26,
-                            fontSize: 16.0,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0)),
-                      const Text(
-                        "Password",
-                        style: TextStyle(fontSize: 18.0, color: Colors.black),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.all(10),
-                          hintText: "",
-                          hintStyle: TextStyle(
-                            color: Colors.black26,
-                            fontSize: 16.0,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0)),
-                      MaterialButton(
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "LOGIN",
-                              style: TextStyle(
-                                color: Colors.white,
+            onTap: () {
+              // signUserOut();
+              Navigator.pop(context);
+            },
+            // onTap: () => Navigator.pop(context),
+          ),
+          StreamBuilder(
+              stream: lessonCollection.where("title").snapshots(),
+              builder: (context, snapshot) {
+                // print(
+                //     "${FirebaseFirestore.instance.collection("Users")} print is here ///////////////");
+                // print(user?.uid.toString());
+                // print(
+                //     "${FirebaseFirestore.instance.collection("displayName").where("uid", isEqualTo: user?.uid).snapshots()} print is here ///////////////");
+                // print(
+                //     "${FirebaseFirestore.instance.collection("uid").where("uid", isEqualTo: "QEMYbhzDhqSIcviYCpVJ2Pq6B3H2").snapshots()} print is here ///////////////");
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    shrinkWrap: true,
+                    itemBuilder: ((context, index) {
+                      var topicIndex = snapshot.data!.docs[index];
+                      return GestureDetector(
+                          //--- เมื่อคลิกที่ข้อมูล title ที่ดึงมาให้แสดง popup เพื่อแสดงรายละเอียด ---
+                          onTap: () {
+                            //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                            //showDetail(topicIndex);
+                          },
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.grey[300],
+                              child: Icon(Icons.bookmark_add_outlined,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                            title: Text(topicIndex['title']),
+                            // subtitle: Text(topicIndex['description']),
+                            trailing: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  print(
+                                      'สมัครคอร์สเรียน: ${topicIndex['title']}');
+                                });
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.blue),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'เริ่มเรียน',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                        color: Colors.black,
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5.0)),
-                      const Center(child: Text("Forgot Password")),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0)),
-                      ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text(
-                          "Logout",
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                        onTap: () {
-                          // signUserOut();
-                          Navigator.pop(context);
-                        },
-                        // onTap: () => Navigator.pop(context),
-                      ),
-                      const Spacer(),
-                      const Center(child: Text("Create new account")),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0)),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+                          ));
+                    }),
+                  );
+
+                  //-------- ถ้าไม่มีข้อมูลในฐานข้อมูลให้แสดงคำว่า 'No data' --------
+                } else {
+                  return Center(child: Text('No data'));
+                }
+              }),
+        ],
       ),
     );
   }

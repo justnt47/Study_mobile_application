@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:test_any_code/addLesson.dart';
 import 'package:test_any_code/test.dart';
 
 import './firebase.dart';
@@ -181,6 +182,16 @@ class _loginPageState extends State<loginPage> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 150, vertical: 16),
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      child: Text('add lesson'),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => addForm()));
+                      },
                     ),
                     SizedBox(
                       height: 10,

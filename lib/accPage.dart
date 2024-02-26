@@ -53,7 +53,9 @@ class _accState extends State<acc> {
                 height: 150,
                 padding: EdgeInsets.all(50),
                 decoration: BoxDecoration(
-                  // border: Border.all(color: Colors.black),
+                  border: Border.all(
+                      width: 5,
+                      color: const Color.fromARGB(255, 255, 255, 255)),
                   color: Color.fromARGB(195, 0, 74, 135),
                   shape: BoxShape.circle,
                   image:
