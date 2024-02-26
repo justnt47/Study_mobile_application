@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slider/carousel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -9,28 +12,27 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  List<String> courses = [
-    'เริ่มต้น Flutter',
-    'ขั้นพื้นฐานการออกแบบ UI ด้วย Flutter',
-    'การจัดสถานะใน Flutter',
-  ];
   String? selectedCourse;
   List<bool> isbookmark = [false, false, false];
+
+  int screenIndex = 0;
+  CollectionReference lessonCollection =
+      FirebaseFirestore.instance.collection("lessons");
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      /* appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Center(
-          child: Text('LEARNING FUTURE', style: TextStyle(color: Colors.black)),
-        ),
-      ), */
       body: Container(
-        height: size.height,
-        width: size.width,
         padding: EdgeInsets.symmetric(horizontal: 20.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.white, Colors.white],
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,8 +70,11 @@ class _homeState extends State<home> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child:
-                          Image.asset('images/anime1.jpg', fit: BoxFit.cover),
+                      child: Image.asset(
+                        'images/anime1.jpg',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
                     ),
                   ),
                   Container(
@@ -78,8 +83,11 @@ class _homeState extends State<home> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child:
-                          Image.asset('images/anime2.jpg', fit: BoxFit.cover),
+                      child: Image.asset(
+                        'images/anime2.jpg',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
                     ),
                   ),
                   Container(
@@ -88,8 +96,11 @@ class _homeState extends State<home> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child:
-                          Image.asset('images/anime3.jpg', fit: BoxFit.cover),
+                      child: Image.asset(
+                        'images/anime3.jpg',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
                     ),
                   ),
                 ],
@@ -97,67 +108,110 @@ class _homeState extends State<home> {
             ),
             SizedBox(height: 40),
             Text(
-              'แนะนำคอร์สเรียน',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              'LEARNING FUTURE',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
             SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: courses.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 3,
-                    margin: EdgeInsets.only(bottom: 20),
-                    child: ListTile(
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.bookmark,
-                          color: isbookmark[index]
-                              ? Colors.orange
-                              : Colors.grey
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              isbookmark[index] = !isbookmark[index];
-                            });
-                          }
-                        ),
-                      tileColor: Colors.white,
-                      title: Text(
-                        courses[index],
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            selectedCourse = courses[index];
-                            print('สมัครคอร์สเรียน: ${courses[index]}');
-                          });
+            StreamBuilder(
+              stream: lessonCollection.snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    shrinkWrap: true,
+                    itemBuilder: ((context, index) {
+                      var topicIndex = snapshot.data!.docs[index];
+                      return GestureDetector(
+                        onTap: () {
+                          //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                          //showDetail(topicIndex);
                         },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.blue.shade500,
+                                Colors.purple.shade500,
+                              ],
+                            ),
+                          ),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.grey[300],
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.bookmark_add_outlined,
+                                  color: isbookmark[index]
+                                      ? Colors.orange
+                                      : Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isbookmark[index] = !isbookmark[index];
+                                  });
+                                },
+                              ),
+                            ),
+                            title: Text(
+                              topicIndex['title'],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white, // Text color
+                              ),
+                            ),
+                            trailing: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  print(
+                                    'สมัครคอร์สเรียน: ${topicIndex['title']}',
+                                  );
+                                });
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.blue),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'Start Learning',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        child: Text(
-                          'เริ่มเรียน',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                      );
+                    }),
                   );
-                },
-              ),
+                } else {
+                  return Center(child: Text('No data'));
+                }
+              },
             ),
           ],
         ),
