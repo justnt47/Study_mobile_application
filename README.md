@@ -1,6 +1,7 @@
-# test_any_code
+# study_mobile_application
 
-A new Flutter project.
+This is my mini project while I am studying in college.
+Using dart to develop  
 
 ## Getting Started
 
