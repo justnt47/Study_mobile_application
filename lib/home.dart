@@ -173,7 +173,7 @@ class _homeState extends State<home> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: Colors.white, // Text color
+                                color: Colors.white,
                               ),
                             ),
                             trailing: ElevatedButton(
