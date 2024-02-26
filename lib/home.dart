@@ -25,14 +25,14 @@ class _homeState extends State<home> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.only(top: 20.0, left: 10, right: 10),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+            /* gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [Colors.white, Colors.white],
-          ),
-        ),
+          ), */
+            ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,9 +45,9 @@ class _homeState extends State<home> {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 3,
+                    spreadRadius: 1,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: Offset(0, 0),
                   ),
                 ],
               ),
@@ -106,112 +106,155 @@ class _homeState extends State<home> {
                 ],
               ),
             ),
-            SizedBox(height: 40),
-            Text(
-              'LEARNING FUTURE',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(height: 20),
-            StreamBuilder(
-              stream: lessonCollection.snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    itemBuilder: ((context, index) {
-                      var topicIndex = snapshot.data!.docs[index];
-                      return GestureDetector(
-                        onTap: () {
-                          //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                          //showDetail(topicIndex);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 3,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Colors.blue.shade500,
-                                Colors.purple.shade500,
-                              ],
-                            ),
-                          ),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey[300],
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.bookmark_add_outlined,
-                                  color: isbookmark[index]
-                                      ? Colors.orange
-                                      : Colors.grey,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isbookmark[index] = !isbookmark[index];
-                                  });
-                                },
-                              ),
-                            ),
-                            title: Text(
-                              topicIndex['title'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
-                            ),
-                            trailing: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  print(
-                                    'สมัครคอร์สเรียน: ${topicIndex['title']}',
-                                  );
-                                });
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
+            SizedBox(height: 60),
+            Expanded(
+              child: Container(
+                height: 800,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 173, 173, 173),
+                      offset: const Offset(
+                        0.0,
+                        0.0,
+                      ),
+                      blurRadius: 5.0,
+                      spreadRadius: 2.0,
+                    ), //BoxShadow
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: const Offset(0.0, 0.0),
+                      blurRadius: 0.0,
+                      spreadRadius: 0.0,
+                    ), //BoxShadow
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Text(
+                      'LEARNING FUTURE',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: StreamBuilder(
+                        stream: lessonCollection.snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              shrinkWrap: true,
+                              itemBuilder: ((context, index) {
+                                var topicIndex = snapshot.data!.docs[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                                    //showDetail(topicIndex);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                      gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          const Color.fromARGB(
+                                              255, 71, 166, 244),
+                                          const Color.fromARGB(
+                                              255, 62, 39, 176),
+                                        ],
+                                      ),
+                                    ),
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 255, 255, 255),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.bookmark_add,
+                                            color: isbookmark[index]
+                                                ? Color.fromARGB(
+                                                    255, 255, 204, 50)
+                                                : Colors.grey,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              isbookmark[index] =
+                                                  !isbookmark[index];
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      title: Text(
+                                        topicIndex['title'],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      trailing: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            print(
+                                              'สมัครคอร์สเรียน: ${topicIndex['title']}',
+                                            );
+                                          });
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.blue),
+                                          shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'Start Learning',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              child: Text(
-                                'Start Learning',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                  );
-                } else {
-                  return Center(child: Text('No data'));
-                }
-              },
+                                );
+                              }),
+                            );
+                          } else {
+                            return Center(child: Text('No data'));
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
