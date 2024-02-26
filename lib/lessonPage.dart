@@ -18,11 +18,26 @@ class _lessonState extends State<lesson> {
           child: Column(
             children: [
               SizedBox(
-                height: 290,
+                height: 70,
               ),
               Text(
-                "This is My lesson Page",
-                style: TextStyle(fontSize: 50),
+                "การเรียนของฉัน",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 60),
+              Row(
+                children: [
+                  SizedBox(width: 30),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('กำลังเรียนอยู่'),
+                  ),
+                  SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('เรียนจบแล้ว'),
+                  ),
+                ],
               ),
             ],
           ),

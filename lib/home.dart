@@ -15,6 +15,7 @@ class _homeState extends State<home> {
     'การจัดสถานะใน Flutter',
   ];
   String? selectedCourse;
+  List<bool> isbookmark = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _homeState extends State<home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 70),
             Container(
               height: size.height * 0.25,
               width: size.width,
@@ -108,6 +109,19 @@ class _homeState extends State<home> {
                     elevation: 3,
                     margin: EdgeInsets.only(bottom: 20),
                     child: ListTile(
+                      leading: IconButton(
+                        icon: Icon(
+                          Icons.bookmark,
+                          color: isbookmark[index]
+                              ? Colors.orange
+                              : Colors.grey
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isbookmark[index] = !isbookmark[index];
+                            });
+                          }
+                        ),
                       tileColor: Colors.white,
                       title: Text(
                         courses[index],
