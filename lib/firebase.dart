@@ -14,14 +14,18 @@ Future<void> userSetup(String displayname) async {
       "added username: ${displayname} Uid: ${uid} DocID: ${result.id}");
 }
 
-/* Future<void> saveBookmark(String displayname) async {
-  CollectionReference user = FirebaseFirestore.instance.collection("Users");
-  DocumentReference BookRef = user.collection("Users").document
+String getDocId() {
+  CollectionReference users = FirebaseFirestore.instance.collection("Users");
   FirebaseAuth auth = FirebaseAuth.instance;
-  final uid = auth.currentUser?.uid.toString();
-  // print(uid);
-  // print(displayname);
-  bookmarkRef.add({"displayName": displayname, "uid": uid});
+  DocumentReference docRef = users.doc();
+  String result = docRef.id;
 
-  return;
-} */
+  return result;
+}
+
+// Future<void> saveBookmark(String id,title,desription) async {
+//   CollectionReference user = FirebaseFirestore.instance.collection("Users");
+//   user.doc(id).collection("MyBookMark").add("title" : title,"desription":desription,"isBooked":true);
+
+//   return;
+// }

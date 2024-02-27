@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_any_code/firebase.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ class acc extends StatefulWidget {
 }
 
 class _accState extends State<acc> {
+  String uDocId = getDocId();
   final user = FirebaseAuth.instance.currentUser;
   final auth = FirebaseAuth.instance;
   CollectionReference userCollection =
@@ -136,6 +138,7 @@ class _accState extends State<acc> {
                   ),
                   child: Column(
                     children: [
+                      Text(uDocId),
                       ListTile(
                         leading: Icon(
                           Icons.settings,
