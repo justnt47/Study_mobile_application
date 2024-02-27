@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_any_code/firebase.dart';
 
 import './loginPage.dart';
 import './home.dart';
@@ -27,6 +28,19 @@ class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: CircleAvatar(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        child: IconButton(
+          icon: Icon(
+            Icons.add,
+          ),
+          onPressed: () {
+            setState(() {
+              getid();
+            });
+          },
+        ),
+      ),
       body: mobileScreens[screenIndex],
       bottomNavigationBar: Container(
         height: 60,

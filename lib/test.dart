@@ -19,6 +19,7 @@ class _MyTestState extends State<MyTest> {
   CollectionReference topicCollection =
       FirebaseFirestore.instance.collection("Users");
   final user = FirebaseAuth.instance.currentUser;
+  List<bool> isbookmark = [false, false, false];
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
@@ -67,70 +68,112 @@ class _MyTestState extends State<MyTest> {
             // onTap: () => Navigator.pop(context),
           ),
           StreamBuilder(
-              stream: lessonCollection.where("title").snapshots(),
-              builder: (context, snapshot) {
-                // print(
-                //     "${FirebaseFirestore.instance.collection("Users")} print is here ///////////////");
-                // print(user?.uid.toString());
-                // print(
-                //     "${FirebaseFirestore.instance.collection("displayName").where("uid", isEqualTo: user?.uid).snapshots()} print is here ///////////////");
-                // print(
-                //     "${FirebaseFirestore.instance.collection("uid").where("uid", isEqualTo: "QEMYbhzDhqSIcviYCpVJ2Pq6B3H2").snapshots()} print is here ///////////////");
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    itemBuilder: ((context, index) {
-                      var topicIndex = snapshot.data!.docs[index];
-                      return GestureDetector(
-                          //--- เมื่อคลิกที่ข้อมูล title ที่ดึงมาให้แสดง popup เพื่อแสดงรายละเอียด ---
-                          onTap: () {
-                            //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                            //showDetail(topicIndex);
-                          },
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey[300],
-                              child: Icon(Icons.bookmark_add_outlined,
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+            stream: lessonCollection.snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  shrinkWrap: true,
+                  itemBuilder: ((context, index) {
+                    var topicIndex = snapshot.data!.docs[index];
+                    return GestureDetector(
+                      onTap: () {
+                        //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                        //showDetail(topicIndex);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 3,
+                              offset: Offset(0, 2),
                             ),
-                            title: Text(topicIndex['title']),
-                            // subtitle: Text(topicIndex['description']),
-                            trailing: ElevatedButton(
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              const Color.fromARGB(255, 71, 166, 244),
+                              const Color.fromARGB(255, 62, 39, 176),
+                            ],
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 255, 255),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.bookmark_add,
+                                color: isbookmark[index]
+                                    ? Color.fromARGB(255, 255, 204, 50)
+                                    : Colors.grey,
+                              ),
                               onPressed: () {
                                 setState(() {
-                                  print(
-                                      'สมัครคอร์สเรียน: ${topicIndex['title']}');
+                                  isbookmark[index] = !isbookmark[index];
                                 });
                               },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                'เริ่มเรียน',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                            ),
+                          ),
+                          title: Text(
+                            topicIndex['title'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                          trailing: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                print(
+                                  'สมัครคอร์สเรียน: ${topicIndex['title']}',
+                                );
+                                lessonCollection.doc(topicIndex.id).update({
+                                  'start_learning': true,
+                                }).then((value) {
+                                  print(
+                                      'การเรียน ${topicIndex['title']} เริ่มแล้ว');
+                                }).catchError((error) {
+                                  print(
+                                      'เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
+                                });
+                              });
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
                                 ),
                               ),
                             ),
-                          ));
-                    }),
-                  );
-
-                  //-------- ถ้าไม่มีข้อมูลในฐานข้อมูลให้แสดงคำว่า 'No data' --------
-                } else {
-                  return Center(child: Text('No data'));
-                }
-              }),
+                            child: Text(
+                              'Start Learning',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                );
+              } else {
+                return Center(child: Text('No data'));
+              }
+            },
+          ),
         ],
       ),
     );

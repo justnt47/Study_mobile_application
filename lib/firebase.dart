@@ -9,7 +9,7 @@ Future<void> userSetup(String displayname) async {
   // print(uid);
   // print(displayname);
   var result = await users.add({"displayName": displayname, "uid": uid});
-
+  users.add({"DocID": result.id});
   return print(
       "added username: ${displayname} Uid: ${uid} DocID: ${result.id}");
 }
@@ -17,10 +17,24 @@ Future<void> userSetup(String displayname) async {
 String getDocId() {
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
   FirebaseAuth auth = FirebaseAuth.instance;
+  print(auth.currentUser?.uid);
   DocumentReference docRef = users.doc();
   String result = docRef.id;
 
   return result;
+}
+
+getid() async {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  var collection = FirebaseFirestore.instance
+      .collection("Users")
+      .where("uid", isEqualTo: auth.currentUser?.uid);
+
+  var doc = await collection.get();
+  var docID = doc.docs.first.id;
+  print(docID);
+
+  return docID;
 }
 
 // Future<void> saveBookmark(String id,title,desription) async {
