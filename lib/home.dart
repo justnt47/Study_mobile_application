@@ -3,6 +3,8 @@ import 'package:flutter_image_slider/carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   String? selectedCourse;
+  String? learningCourse;
   List<bool> isbookmark = [false, false, false];
 
   int screenIndex = 0;
@@ -218,6 +221,13 @@ class _homeState extends State<home> {
                                             print(
                                               'สมัครคอร์สเรียน: ${topicIndex['title']}',
                                             );
+                                            lessonCollection.doc(topicIndex.id).update({
+                                              'start_learning': true,
+                                            }).then((value){
+                                              print('การเรียน ${topicIndex['title']} เริ่มแล้ว');
+                                            }).catchError((error){
+                                              print('เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
+                                            });
                                           });
                                         },
                                         style: ButtonStyle(

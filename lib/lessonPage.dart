@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class lesson extends StatefulWidget {
   lesson({super.key});
@@ -28,14 +30,15 @@ class _lessonState extends State<lesson> {
               Row(
                 children: [
                   SizedBox(width: 30),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('กำลังเรียนอยู่'),
+                  Icon(
+                    Icons.school,
+                    size: 30,
+                    color: Colors.blue,
                   ),
                   SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('เรียนจบแล้ว'),
+                  Text(
+                    'กำลังเรียนอยู่',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
