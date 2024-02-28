@@ -39,7 +39,7 @@ class _lessonState extends State<lesson> {
                   Text(
                     'กำลังเรียนอยู่',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  ),              
                 ],
               ),
             ],
