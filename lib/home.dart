@@ -221,13 +221,6 @@ class _homeState extends State<home> {
                                             print(
                                               'สมัครคอร์สเรียน: ${topicIndex['title']}',
                                             );
-                                            lessonCollection.doc(topicIndex.id).update({
-                                              'start_learning': true,
-                                            }).then((value){
-                                              print('การเรียน ${topicIndex['title']} เริ่มแล้ว');
-                                            }).catchError((error){
-                                              print('เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
-                                            });
                                           });
                                         },
                                         style: ButtonStyle(
