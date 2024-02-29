@@ -143,7 +143,7 @@ class _homeState extends State<home> {
                     SizedBox(height: 10),
                     Text(
                       'LEARNING FUTURE',
-                      style: GoogleFonts.permanentMarker(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                      style: GoogleFonts.permanentMarker(fontSize: 30,  color: Colors.blueAccent),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
