@@ -21,6 +21,11 @@ class _homeState extends State<home> {
   String? learningCourse;
   List<bool> isbookmark = [false, false, false];
 
+  void toggleBookmark(int index){
+    isbookmark[index] = !isbookmark[index];
+  }
+
+
   int screenIndex = 0;
   CollectionReference lessonCollection =
       FirebaseFirestore.instance.collection("lessons");
@@ -221,20 +226,6 @@ class _homeState extends State<home> {
                                             print(
                                               'สมัครคอร์สเรียน: ${topicIndex['title']}',
                                             );
-<<<<<<< HEAD
-                                            lessonCollection
-                                                .doc(topicIndex.id)
-                                                .update({
-                                              'start_learning': true,
-                                            }).then((value) {
-                                              print(
-                                                  'การเรียน ${topicIndex['title']} เริ่มแล้ว');
-                                            }).catchError((error) {
-                                              print(
-                                                  'เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
-                                            });
-=======
->>>>>>> main
                                           });
                                         },
                                         style: ButtonStyle(

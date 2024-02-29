@@ -27,23 +27,6 @@ class _MyTestState extends State<MyTest> {
     FirebaseAuth.instance.signOut();
   }
 
-  printDoc() async {
-    var collection = FirebaseFirestore.instance
-        .collection("Users")
-        .where("uid", isEqualTo: auth.currentUser?.uid);
-
-    var doc = await collection.get();
-    docID = doc.docs.first.id;
-    var result = await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(docID)
-        .collection("MyBookMark")
-        .where("isBooked", isEqualTo: true)
-        .get();
-
-    print("result: ${result.docs.length}");
-  }
-
   @override
   void initState() {
     super.initState();
@@ -59,38 +42,49 @@ class _MyTestState extends State<MyTest> {
     // Example: setState, update UI, etc.
   }
 
+  printDoc() async {
+    var collection = FirebaseFirestore.instance
+        .collection("Users")
+        .where("uid", isEqualTo: auth.currentUser?.uid);
+
+    var doc = await collection.get();
+    setState(() {
+      docID = doc.docs.first.id;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 35, left: 10, right: 10),
-        child: Container(
-          padding: EdgeInsets.all(60),
-          height: 500,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(255, 173, 173, 173),
-                offset: const Offset(
-                  0.0,
-                  0.0,
-                ),
-                blurRadius: 5.0,
-                spreadRadius: 2.0,
-              ), //BoxShadow
-              BoxShadow(
-                color: Colors.white,
-                offset: const Offset(0.0, 0.0),
-                blurRadius: 0.0,
-                spreadRadius: 0.0,
-              ), //BoxShadow
-            ],
-          ),
-          child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 173, 173, 173),
+                  offset: const Offset(
+                    0.0,
+                    0.0,
+                  ),
+                  blurRadius: 5.0,
+                  spreadRadius: 2.0,
+                ), //BoxShadow
+                BoxShadow(
+                  color: Colors.white,
+                  offset: const Offset(0.0, 0.0),
+                  blurRadius: 0.0,
+                  spreadRadius: 0.0,
+                ), //BoxShadow
+              ],
+            ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
                   leading: Icon(
@@ -132,32 +126,36 @@ class _MyTestState extends State<MyTest> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: StreamBuilder(
-                    stream:
-                        Users.doc(docID).collection("MyBookMark").snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        print("condition is true");
-                        return ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          shrinkWrap: true,
-                          itemBuilder: ((context, index) {
-                            var topicIndex = snapshot.data!.docs[index];
-                            return GestureDetector(
-                              onTap: () {
-                                //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                                //showDetail(topicIndex);
-                              },
-                              child: Text(topicIndex["title"]),
-                            );
-                          }),
-                        );
-                      } else {
-                        print("condition is false");
-                        return Center(child: Text('No data'));
-                      }
-                    },
-                  ),
+                  child: docID != null
+                      ? StreamBuilder(
+                          stream: Users
+                              .doc(docID)
+                              .collection("MyBookMark")
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              print("condition is true");
+                              return ListView.builder(
+                                itemCount: snapshot.data!.docs.length,
+                                shrinkWrap: true,
+                                itemBuilder: ((context, index) {
+                                  var topicIndex = snapshot.data!.docs[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                                      //showDetail(topicIndex);
+                                    },
+                                    child: Text(topicIndex["title"]),
+                                  );
+                                }),
+                              );
+                            } else {
+                              print("condition is false");
+                              return Center(child: Text('No data'));
+                            }
+                          },
+                        )
+                      : Center(child: CircularProgressIndicator()),
                 ),
               ],
             ),
