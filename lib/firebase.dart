@@ -43,20 +43,31 @@ Future<void> saveBookmark(title, description) async {
 
   var doc = await collection.get();
   var docID = doc.docs.first.id;
-  users
+  var result = await FirebaseFirestore.instance
+      .collection("Users")
       .doc(docID)
       .collection("MyBookMark")
-      .add({"title": title, "description": description, "isBooked": true});
+      .where("title", isEqualTo: title)
+      .get();
 
-  return print("adding successful data \"$title\" at $docID");
+  var amountofData = result.docs.length;
+
+  print("amountofData: ${result.docs.length}");
+  if (amountofData == 0) {
+    users
+        .doc(docID)
+        .collection("MyBookMark")
+        .add({"title": title, "description": description, "isBooked": true});
+
+    print("adding successful data \"$title\" at $docID");
+  } else {
+    print("data \"$title\" already exist ");
+  }
+
+  return;
 }
 
 var doc_id = docIDString();
-
-void loadData() async {
-  QuerySnapshot<Map<String, dynamic>> bookMarkQuery =
-      await users.doc(docIDString()).collection("MyBookMark").get();
-}
 
 printDoc() async {
   var collection = FirebaseFirestore.instance

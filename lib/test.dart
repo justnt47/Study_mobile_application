@@ -126,10 +126,9 @@ class _MyTestState extends State<MyTest> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: docID != null
+                  child: (docID != null)
                       ? StreamBuilder(
-                          stream: Users
-                              .doc(docID)
+                          stream: Users.doc(docID)
                               .collection("MyBookMark")
                               .snapshots(),
                           builder: (context, snapshot) {

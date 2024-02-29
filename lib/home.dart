@@ -21,10 +21,9 @@ class _homeState extends State<home> {
   String? learningCourse;
   List<bool> isbookmark = [false, false, false];
 
-  void toggleBookmark(int index){
+  void toggleBookmark(int index) {
     isbookmark[index] = !isbookmark[index];
   }
-
 
   int screenIndex = 0;
   CollectionReference lessonCollection =
@@ -149,7 +148,8 @@ class _homeState extends State<home> {
                     SizedBox(height: 10),
                     Text(
                       'LEARNING FUTURE',
-                      style: GoogleFonts.permanentMarker(fontSize: 30,  color: Colors.blueAccent),
+                      style: GoogleFonts.permanentMarker(
+                          fontSize: 30, color: Colors.blueAccent),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
