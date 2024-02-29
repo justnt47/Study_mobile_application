@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+
+import 'package:test_any_code/firebase.dart';
 
 class MyTest extends StatefulWidget {
   const MyTest({super.key});
@@ -16,165 +19,181 @@ class MyTest extends StatefulWidget {
 }
 
 class _MyTestState extends State<MyTest> {
-  CollectionReference topicCollection =
-      FirebaseFirestore.instance.collection("Users");
-  final user = FirebaseAuth.instance.currentUser;
+  CollectionReference Users = FirebaseFirestore.instance.collection("Users");
+  final auth = FirebaseAuth.instance;
+  String? docID;
   List<bool> isbookmark = [false, false, false];
-
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
 
-  ShowUserEmail() {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return Column(
-        children: [
-          Text("${user?.email}"),
-          // Text("${user?.uid}"),
-        ],
-      );
-    } else {
-      return Text("ThisIsDemoEmail@test.com");
-    }
+  printDoc() async {
+    var collection = FirebaseFirestore.instance
+        .collection("Users")
+        .where("uid", isEqualTo: auth.currentUser?.uid);
+
+    var doc = await collection.get();
+    docID = doc.docs.first.id;
+    var result = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(docID)
+        .collection("MyBookMark")
+        .where("isBooked", isEqualTo: true)
+        .get();
+
+    print("result: ${result.docs.length}");
   }
 
-  int screenIndex = 0;
-  CollectionReference lessonCollection =
-      FirebaseFirestore.instance.collection("lessons");
-  final ScrollController scrollController = ScrollController();
+  /* docIDString() {
+    getDocId().then((DocID) {
+      print("DocID type is ${DocID.runtimeType}");
+      print("DocID is ${DocID}");
+
+      return DocID;
+    });
+  } */
+
+  /* Future<QuerySnapshot> getDocuments() async {
+    return await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(docIDString())
+        .collection('MyBookMark')
+        .get();
+  } */
+
+  /* getSubDoc() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    var collection = FirebaseFirestore.instance
+        .collection("Users")
+        .where("uid", isEqualTo: auth.currentUser?.uid);
+
+    var doc = await collection.get();
+    var docID = doc.docs.first.id;
+    final QuerySnapshot<Map<String, dynamic>> bookMarkQuery =
+        await Users.doc(docID).collection('MyBookMark').get();
+
+    print(bookMarkQuery);
+    return bookMarkQuery;
+  } */
+  @override
+  void initState() {
+    super.initState();
+    // Call the async method in initState
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    // Call the printDoc function when the widget is initialized
+    await printDoc();
+
+    // After printDoc is completed, you can perform additional tasks if needed
+    // Example: setState, update UI, etc.
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 35, left: 10, right: 10),
+        child: Container(
+          padding: EdgeInsets.all(60),
+          height: 500,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 173, 173, 173),
+                offset: const Offset(
+                  0.0,
+                  0.0,
+                ),
+                blurRadius: 5.0,
+                spreadRadius: 2.0,
+              ), //BoxShadow
+              BoxShadow(
+                color: Colors.white,
+                offset: const Offset(0.0, 0.0),
+                blurRadius: 0.0,
+                spreadRadius: 0.0,
+              ), //BoxShadow
+            ],
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              "Logout",
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-                letterSpacing: 0,
-              ),
-            ),
-            onTap: () {
-              // signUserOut();
-              Navigator.pop(context);
-            },
-            // onTap: () => Navigator.pop(context),
-          ),
-          StreamBuilder(
-            stream: lessonCollection.snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  shrinkWrap: true,
-                  itemBuilder: ((context, index) {
-                    var topicIndex = snapshot.data!.docs[index];
-                    return GestureDetector(
-                      onTap: () {
-                        //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                        //showDetail(topicIndex);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                          gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              const Color.fromARGB(255, 71, 166, 244),
-                              const Color.fromARGB(255, 62, 39, 176),
-                            ],
-                          ),
-                        ),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor:
-                                const Color.fromARGB(255, 255, 255, 255),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.bookmark_add,
-                                color: isbookmark[index]
-                                    ? Color.fromARGB(255, 255, 204, 50)
-                                    : Colors.grey,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  isbookmark[index] = !isbookmark[index];
-                                });
+          child: Center(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 35,
+                  ),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.black,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                  onTap: () {
+                    // signUserOut();
+                    Navigator.pop(context);
+                  },
+                  // onTap: () => Navigator.pop(context),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 35,
+                  ),
+                  title: Text(
+                    "Trigger func",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.black,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                  onTap: () {
+                    printDoc();
+                    print(docID);
+                  },
+                  // onTap: () => Navigator.pop(context),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: StreamBuilder(
+                    stream:
+                        Users.doc(docID).collection("MyBookMark").snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print("condition is true");
+                        return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          itemBuilder: ((context, index) {
+                            var topicIndex = snapshot.data!.docs[index];
+                            return GestureDetector(
+                              onTap: () {
+                                //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                                //showDetail(topicIndex);
                               },
-                            ),
-                          ),
-                          title: Text(
-                            topicIndex['title'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                print(
-                                  'สมัครคอร์สเรียน: ${topicIndex['title']}',
-                                );
-                                lessonCollection.doc(topicIndex.id).update({
-                                  'start_learning': true,
-                                }).then((value) {
-                                  print(
-                                      'การเรียน ${topicIndex['title']} เริ่มแล้ว');
-                                }).catchError((error) {
-                                  print(
-                                      'เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
-                                });
-                              });
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.blue),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Start Learning',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                );
-              } else {
-                return Center(child: Text('No data'));
-              }
-            },
+                              child: Text(topicIndex["title"]),
+                            );
+                          }),
+                        );
+                      } else {
+                        print("condition is false");
+                        return Center(child: Text('No data'));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

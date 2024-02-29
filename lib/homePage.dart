@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_any_code/firebase.dart';
 
-import './loginPage.dart';
+import 'package:test_any_code/controller.dart';
 import './home.dart';
 import './lessonPage.dart';
 import './bookMarkPage.dart';
@@ -29,14 +29,14 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: CircleAvatar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 118, 200, 241),
         child: IconButton(
           icon: Icon(
             Icons.add,
           ),
           onPressed: () {
             setState(() {
-              getid();
+              printDoc();
             });
           },
         ),

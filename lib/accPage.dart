@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_any_code/firebase.dart';
-import 'package:test_any_code/loginPage.dart';
-import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:test_any_code/test.dart';
 
 class acc extends StatefulWidget {
   const acc({super.key});
@@ -15,7 +13,6 @@ class acc extends StatefulWidget {
 }
 
 class _accState extends State<acc> {
-  String uDocId = getDocId();
   final user = FirebaseAuth.instance.currentUser;
   final auth = FirebaseAuth.instance;
   CollectionReference userCollection =
@@ -139,7 +136,6 @@ class _accState extends State<acc> {
                   ),
                   child: Column(
                     children: [
-                      Text(uDocId),
                       ListTile(
                         leading: Icon(
                           Icons.settings,
@@ -170,6 +166,28 @@ class _accState extends State<acc> {
                         ),
                         onTap: () {
                           signUserOut();
+                          // Navigator.pop(context);
+                        },
+                        // onTap: () => Navigator.pop(context),
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.logout,
+                          size: 35,
+                        ),
+                        title: Text(
+                          "TestPage",
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            color: Colors.black,
+                            letterSpacing: 0,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyTest()));
                           // Navigator.pop(context);
                         },
                         // onTap: () => Navigator.pop(context),
