@@ -5,7 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+<<<<<<< HEAD
 import 'package:test_any_code/firebase.dart';
+=======
+import 'package:google_fonts/google_fonts.dart';
+>>>>>>> main
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -142,11 +146,7 @@ class _homeState extends State<home> {
                     SizedBox(height: 10),
                     Text(
                       'LEARNING FUTURE',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                      style: GoogleFonts.permanentMarker(fontSize: 30,  color: Colors.blueAccent),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -223,6 +223,7 @@ class _homeState extends State<home> {
                                             print(
                                               'สมัครคอร์สเรียน: ${topicIndex['title']}',
                                             );
+<<<<<<< HEAD
                                             lessonCollection
                                                 .doc(topicIndex.id)
                                                 .update({
@@ -234,6 +235,8 @@ class _homeState extends State<home> {
                                               print(
                                                   'เกิดข้อผิดพลาดในการเพิ่มข้อมูล: $error');
                                             });
+=======
+>>>>>>> main
                                           });
                                         },
                                         style: ButtonStyle(
