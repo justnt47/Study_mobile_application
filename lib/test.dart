@@ -44,37 +44,6 @@ class _MyTestState extends State<MyTest> {
     print("result: ${result.docs.length}");
   }
 
-  /* docIDString() {
-    getDocId().then((DocID) {
-      print("DocID type is ${DocID.runtimeType}");
-      print("DocID is ${DocID}");
-
-      return DocID;
-    });
-  } */
-
-  /* Future<QuerySnapshot> getDocuments() async {
-    return await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(docIDString())
-        .collection('MyBookMark')
-        .get();
-  } */
-
-  /* getSubDoc() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    var collection = FirebaseFirestore.instance
-        .collection("Users")
-        .where("uid", isEqualTo: auth.currentUser?.uid);
-
-    var doc = await collection.get();
-    var docID = doc.docs.first.id;
-    final QuerySnapshot<Map<String, dynamic>> bookMarkQuery =
-        await Users.doc(docID).collection('MyBookMark').get();
-
-    print(bookMarkQuery);
-    return bookMarkQuery;
-  } */
   @override
   void initState() {
     super.initState();
