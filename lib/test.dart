@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+
+import 'package:test_any_code/firebase.dart';
 
 class MyTest extends StatefulWidget {
   const MyTest({super.key});
@@ -16,122 +19,150 @@ class MyTest extends StatefulWidget {
 }
 
 class _MyTestState extends State<MyTest> {
-  CollectionReference topicCollection =
-      FirebaseFirestore.instance.collection("Users");
-  final user = FirebaseAuth.instance.currentUser;
-
+  CollectionReference Users = FirebaseFirestore.instance.collection("Users");
+  final auth = FirebaseAuth.instance;
+  String? docID;
+  List<bool> isbookmark = [false, false, false];
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
 
-  ShowUserEmail() {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return Column(
-        children: [
-          Text("${user?.email}"),
-          // Text("${user?.uid}"),
-        ],
-      );
-    } else {
-      return Text("ThisIsDemoEmail@test.com");
-    }
+  printDoc() async {
+    var collection = FirebaseFirestore.instance
+        .collection("Users")
+        .where("uid", isEqualTo: auth.currentUser?.uid);
+
+    var doc = await collection.get();
+    docID = doc.docs.first.id;
+    var result = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(docID)
+        .collection("MyBookMark")
+        .where("isBooked", isEqualTo: true)
+        .get();
+
+    print("result: ${result.docs.length}");
   }
 
-  int screenIndex = 0;
-  CollectionReference lessonCollection =
-      FirebaseFirestore.instance.collection("lessons");
-  final ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    // Call the async method in initState
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    // Call the printDoc function when the widget is initialized
+    await printDoc();
+
+    // After printDoc is completed, you can perform additional tasks if needed
+    // Example: setState, update UI, etc.
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 35, left: 10, right: 10),
+        child: Container(
+          padding: EdgeInsets.all(60),
+          height: 500,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 173, 173, 173),
+                offset: const Offset(
+                  0.0,
+                  0.0,
+                ),
+                blurRadius: 5.0,
+                spreadRadius: 2.0,
+              ), //BoxShadow
+              BoxShadow(
+                color: Colors.white,
+                offset: const Offset(0.0, 0.0),
+                blurRadius: 0.0,
+                spreadRadius: 0.0,
+              ), //BoxShadow
+            ],
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              "Logout",
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-                letterSpacing: 0,
-              ),
-            ),
-            onTap: () {
-              // signUserOut();
-              Navigator.pop(context);
-            },
-            // onTap: () => Navigator.pop(context),
-          ),
-          StreamBuilder(
-              stream: lessonCollection.where("title").snapshots(),
-              builder: (context, snapshot) {
-                // print(
-                //     "${FirebaseFirestore.instance.collection("Users")} print is here ///////////////");
-                // print(user?.uid.toString());
-                // print(
-                //     "${FirebaseFirestore.instance.collection("displayName").where("uid", isEqualTo: user?.uid).snapshots()} print is here ///////////////");
-                // print(
-                //     "${FirebaseFirestore.instance.collection("uid").where("uid", isEqualTo: "QEMYbhzDhqSIcviYCpVJ2Pq6B3H2").snapshots()} print is here ///////////////");
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    itemBuilder: ((context, index) {
-                      var topicIndex = snapshot.data!.docs[index];
-                      return GestureDetector(
-                          //--- เมื่อคลิกที่ข้อมูล title ที่ดึงมาให้แสดง popup เพื่อแสดงรายละเอียด ---
-                          onTap: () {
-                            //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                            //showDetail(topicIndex);
-                          },
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey[300],
-                              child: Icon(Icons.bookmark_add_outlined,
-                                  color: Color.fromARGB(255, 255, 255, 255)),
-                            ),
-                            title: Text(topicIndex['title']),
-                            // subtitle: Text(topicIndex['description']),
-                            trailing: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  print(
-                                      'สมัครคอร์สเรียน: ${topicIndex['title']}');
-                                });
+          child: Center(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 35,
+                  ),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.black,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                  onTap: () {
+                    // signUserOut();
+                    Navigator.pop(context);
+                  },
+                  // onTap: () => Navigator.pop(context),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 35,
+                  ),
+                  title: Text(
+                    "Trigger func",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.black,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                  onTap: () {
+                    printDoc();
+                    print(docID);
+                  },
+                  // onTap: () => Navigator.pop(context),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: StreamBuilder(
+                    stream:
+                        Users.doc(docID).collection("MyBookMark").snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print("condition is true");
+                        return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          itemBuilder: ((context, index) {
+                            var topicIndex = snapshot.data!.docs[index];
+                            return GestureDetector(
+                              onTap: () {
+                                //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
+                                //showDetail(topicIndex);
                               },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                'เริ่มเรียน',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ));
-                    }),
-                  );
-
-                  //-------- ถ้าไม่มีข้อมูลในฐานข้อมูลให้แสดงคำว่า 'No data' --------
-                } else {
-                  return Center(child: Text('No data'));
-                }
-              }),
-        ],
+                              child: Text(topicIndex["title"]),
+                            );
+                          }),
+                        );
+                      } else {
+                        print("condition is false");
+                        return Center(child: Text('No data'));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
