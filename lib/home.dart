@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -142,11 +143,7 @@ class _homeState extends State<home> {
                     SizedBox(height: 10),
                     Text(
                       'LEARNING FUTURE',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                      style: GoogleFonts.permanentMarker(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blueAccent),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
