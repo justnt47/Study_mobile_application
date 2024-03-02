@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_any_code/accPage.dart';
+import 'package:test_any_code/settingPage.dart';
 
 import './homePage.dart';
 import './loginPage.dart';

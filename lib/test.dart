@@ -36,13 +36,13 @@ class _MyTestState extends State<MyTest> {
 
   Future<void> _initializeData() async {
     // Call the printDoc function when the widget is initialized
-    await printDoc();
+    await getDocID();
 
     // After printDoc is completed, you can perform additional tasks if needed
     // Example: setState, update UI, etc.
   }
 
-  printDoc() async {
+  getDocID() async {
     var collection = FirebaseFirestore.instance
         .collection("Users")
         .where("uid", isEqualTo: auth.currentUser?.uid);
@@ -130,6 +130,7 @@ class _MyTestState extends State<MyTest> {
                       ? StreamBuilder(
                           stream: Users.doc(docID)
                               .collection("MyBookMark")
+                              .where("isBooked", isEqualTo: true)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {

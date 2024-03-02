@@ -1,9 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test_any_code/firebase.dart';
+import 'package:test_any_code/changePasswordPage.dart';
+import 'package:test_any_code/changeUsernamePage.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:test_any_code/test.dart';
 
 class acc extends StatefulWidget {
   const acc({super.key});
@@ -33,168 +33,74 @@ class _accState extends State<acc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(236, 239, 240, 1),
+      appBar: AppBar(
+        title: Text("Account Setting"),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              const Color.fromARGB(255, 0, 80, 146),
-              Color.fromARGB(255, 240, 25, 175),
-            ],
-          )),
           child: Column(
             children: [
-              SizedBox(height: 50),
-              Container(
-                width: 130,
-                height: 150,
-                padding: EdgeInsets.all(50),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 5,
-                      color: const Color.fromARGB(255, 255, 255, 255)),
-                  color: Color.fromARGB(195, 0, 74, 135),
-                  shape: BoxShape.circle,
-                  image:
-                      DecorationImage(image: AssetImage("images/avatar2.jpg")),
-                ),
-              ),
-              StreamBuilder(
-                  stream: userCollection
-                      .where("uid", isEqualTo: user?.uid.toString())
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    // print(
-                    //     "${FirebaseFirestore.instance.collection("Users")} print is here ///////////////");
-                    // print(user?.uid.toString());
-                    // print(
-                    //     "${FirebaseFirestore.instance.collection("displayName").where("uid", isEqualTo: user?.uid).snapshots()} print is here ///////////////");
-                    // print(
-                    //     "${FirebaseFirestore.instance.collection("uid").where("uid", isEqualTo: "QEMYbhzDhqSIcviYCpVJ2Pq6B3H2").snapshots()} print is here ///////////////");
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        shrinkWrap: true,
-                        itemBuilder: ((context, index) {
-                          var topicIndex = snapshot.data!.docs[index];
-                          return GestureDetector(
-                              //--- เมื่อคลิกที่ข้อมูล title ที่ดึงมาให้แสดง popup เพื่อแสดงรายละเอียด ---
-                              onTap: () {
-                                //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                                //showDetail(topicIndex);
-                              },
-                              child: Column(
-                                children: [
-                                  Text(
-                                    topicIndex['displayName'],
-                                    style: TextStyle(
-                                        fontSize: 36,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-
-                                  // ShowUserEmail(),
-                                ],
-                              ));
-                        }),
-                      );
-
-                      //-------- ถ้าไม่มีข้อมูลในฐานข้อมูลให้แสดงคำว่า 'No data' --------
-                    } else {
-                      return Center(child: Text('No data'));
-                    }
-                  }),
-              SizedBox(height: 20),
               Expanded(
                 child: Container(
-                  height: 800,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.0),
-                        topRight: Radius.circular(25.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 173, 173, 173),
-                        offset: const Offset(
-                          0.0,
-                          0.0,
-                        ),
-                        blurRadius: 5.0,
-                        spreadRadius: 2.0,
-                      ), //BoxShadow
-                      BoxShadow(
-                        color: Colors.white,
-                        offset: const Offset(0.0, 0.0),
-                        blurRadius: 0.0,
-                        spreadRadius: 0.0,
-                      ), //BoxShadow
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: Icon(
-                          Icons.settings,
-                          size: 35,
-                        ),
-                        title: Text(
-                          "Setting",
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            color: Colors.black,
-                            letterSpacing: 0,
+                    height: 800,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 173, 173, 173),
+                          offset: const Offset(
+                            0.0,
+                            0.0,
                           ),
-                        ),
-                        onTap: () => true,
-                      ),
-                      ListTile(
-                        leading: Icon(
-                          Icons.logout,
-                          size: 35,
-                        ),
-                        title: Text(
-                          "Logout",
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            color: Colors.black,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                        onTap: () {
-                          signUserOut();
-                          // Navigator.pop(context);
-                        },
-                        // onTap: () => Navigator.pop(context),
-                      ),
-                      ListTile(
-                        leading: Icon(
-                          Icons.logout,
-                          size: 35,
-                        ),
-                        title: Text(
-                          "TestPage",
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            color: Colors.black,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyTest()));
-                          // Navigator.pop(context);
-                        },
-                        // onTap: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-                ),
+                          blurRadius: 5.0,
+                          spreadRadius: 2.0,
+                        ), //BoxShadow
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: const Offset(0.0, 0.0),
+                          blurRadius: 0.0,
+                          spreadRadius: 0.0,
+                        ), //BoxShadow
+                      ],
+                    ),
+                    child: ListView(
+                      children: ListTile.divideTiles(
+                          //          <-- ListTile.divideTiles
+                          context: context,
+                          tiles: [
+                            ListTile(
+                              leading: Icon(
+                                Icons.settings,
+                                size: 35,
+                              ),
+                              title: Text('Update Username'),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            changeUsernamePage()));
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.key,
+                                size: 35,
+                              ),
+                              title: Text('Change Password'),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            changePasswordPage()));
+                              },
+                            ),
+                          ]).toList(),
+                    )),
               ),
             ],
           ),

@@ -170,13 +170,18 @@ class _RegistPageState extends State<RegistPage> {
                           Navigator.pop(context);
                         }
                       },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: Text('Sign Up',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                      ),
+                          foregroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+                          backgroundColor: Colors.blue,
+                          textStyle: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                          fixedSize: Size(1500, 50)),
                     ),
                   ],
                 ),

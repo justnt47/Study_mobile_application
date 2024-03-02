@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_any_code/firebase.dart';
 
-import 'package:test_any_code/controller.dart';
 import './home.dart';
 import './lessonPage.dart';
 import './bookMarkPage.dart';
-import './accPage.dart';
+import './settingPage.dart';
 
 class homePage extends StatefulWidget {
   homePage({super.key});
@@ -23,7 +22,7 @@ class _homePageState extends State<homePage> {
     home(),
     lesson(),
     bookmark(),
-    acc(),
+    sett(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,7 @@ class _homePageState extends State<homePage> {
                   });
                 },
                 icon: Icon(
-                  Icons.person,
+                  Icons.settings,
                   size: 35,
                   color: screenIndex == 3
                       ? Color.fromRGBO(214, 214, 214, 1)

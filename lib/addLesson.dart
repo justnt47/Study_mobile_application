@@ -69,7 +69,7 @@ class _addFormState extends State<addForm> {
                 ListTile(
                   leading: Icon(Icons.logout),
                   title: Text(
-                    "Logout",
+                    "Log out",
                     style: TextStyle(
                       fontSize: 15.0,
                       color: Colors.black,

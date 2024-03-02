@@ -170,38 +170,24 @@ class _loginPageState extends State<loginPage> {
                           signUserIn();
                         }
                       },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                      child: const Text(
+                        'Log in',
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 150, vertical: 16),
-                      ),
+                          foregroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+                          backgroundColor: Colors.blue,
+                          textStyle: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                          fixedSize: Size(1500, 50)),
                     ),
+                    // padding:
+                    //     EdgeInsets.symmetric(horizontal: 150, vertical: 16),
                     SizedBox(
                       height: 10,
                     ),
-                    ElevatedButton(
-                      child: Text('add lesson'),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => addForm()));
-                      },
-                    ),
                     SizedBox(
                       height: 10,
-                    ),
-                    ElevatedButton(
-                      child: Text('test page'),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyTest()));
-                      },
                     ),
                   ],
                 ),

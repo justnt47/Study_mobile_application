@@ -16,26 +16,6 @@ Future<void> userSetup(String displayname) async {
       "added username: ${displayname} Uid: ${uid} DocID: ${result.id}");
 }
 
-Future<String?> getDocId() async {
-  var collection = FirebaseFirestore.instance
-      .collection("Users")
-      .where("uid", isEqualTo: auth.currentUser?.uid);
-
-  var doc = await collection.get();
-  var docID = doc.docs.first.id;
-
-  return docID.toString();
-}
-
-docIDString() {
-  getDocId().then((DocID) {
-    print("DocID type is ${DocID.runtimeType}");
-    print("DocID is ${DocID}");
-
-    return DocID;
-  });
-}
-
 Future<void> saveBookmark(title, description) async {
   var collection = FirebaseFirestore.instance
       .collection("Users")
@@ -66,8 +46,6 @@ Future<void> saveBookmark(title, description) async {
 
   return;
 }
-
-var doc_id = docIDString();
 
 printDoc() async {
   var collection = FirebaseFirestore.instance
