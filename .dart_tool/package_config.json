@@ -33,7 +33,7 @@
     },
     {
       "name": "basic_utils",
-      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/basic_utils-5.7.0",
+      "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/basic_utils-5.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -261,7 +261,7 @@
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.8.1",
+      "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.8.1",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -273,7 +273,7 @@
     },
     {
       "name": "logging",
-      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0",
+      "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -375,7 +375,7 @@
     },
     {
       "name": "pointycastle",
-      "rootUri": "file:///C:/Users/NT/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.4",
+      "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.4",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -506,7 +506,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-02T11:16:29.953103Z",
+  "generated": "2024-03-02T13:24:22.858935Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }

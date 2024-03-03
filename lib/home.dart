@@ -130,7 +130,7 @@ class _homeState extends State<home> {
                       color: Color.fromARGB(255, 173, 173, 173),
                       offset: const Offset(
                         0.0,
-                        0.0,
+                        0.0
                       ),
                       blurRadius: 5.0,
                       spreadRadius: 2.0,

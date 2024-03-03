@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_any_code/loginPage.dart';
 import 'package:test_any_code/main.dart';
@@ -39,7 +40,37 @@ class _lessonState extends State<lesson> {
                   Text(
                     'กำลังเรียนอยู่',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),              
+                  ),            
+                ],
+              ),
+              SizedBox(height: 40),
+              Column(
+                children: [
+                  Container(
+                    height: 800,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25)
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 173, 173, 173),
+                          offset: const Offset(0, 0),
+                          blurRadius: 5,
+                          spreadRadius: 2,
+                        ),
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: const Offset(0, 0),
+                          blurRadius: 0,
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),         
+                  ),
                 ],
               ),
             ],
