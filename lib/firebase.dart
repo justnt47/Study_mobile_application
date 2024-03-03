@@ -47,6 +47,37 @@ Future<void> saveBookmark(title, description) async {
   return;
 }
 
+Future<void> saveLessons(title, description) async {
+  var collection = FirebaseFirestore.instance
+      .collection("Users")
+      .where("uid", isEqualTo: auth.currentUser?.uid);
+
+  var doc = await collection.get();
+  var docID = doc.docs.first.id;
+  var result = await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(docID)
+      .collection("MyLessons")
+      .where("title", isEqualTo: title)
+      .get();
+
+  var amountofData = result.docs.length;
+
+  print("amountofData: ${result.docs.length}");
+  if (amountofData == 0) {
+    users
+        .doc(docID)
+        .collection("MyLessons")
+        .add({"title": title, "description": description, "is": true});
+
+    print("adding data successful data : \"$title\" at $docID");
+  } else {
+    print("data \"$title\" already exist ");
+  }
+
+  return;
+}
+
 printDoc() async {
   var collection = FirebaseFirestore.instance
       .collection("Users")

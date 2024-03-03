@@ -223,6 +223,8 @@ class _homeState extends State<home> {
                                       trailing: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
+                                            saveLessons(topicIndex["title"],
+                                                topicIndex["description"]);
                                             print(
                                               'สมัครคอร์สเรียน: ${topicIndex['title']}',
                                             );
