@@ -128,10 +128,7 @@ class _homeState extends State<home> {
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromARGB(255, 173, 173, 173),
-                      offset: const Offset(
-                        0.0,
-                        0.0
-                      ),
+                      offset: const Offset(0.0, 0.0),
                       blurRadius: 5.0,
                       spreadRadius: 2.0,
                     ), //BoxShadow
@@ -168,7 +165,7 @@ class _homeState extends State<home> {
                                     //showDetail(topicIndex);
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.only(bottom: 20),
+                                    margin: EdgeInsets.only(bottom: 10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       boxShadow: [

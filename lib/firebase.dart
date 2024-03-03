@@ -47,6 +47,13 @@ Future<void> saveBookmark(title, description) async {
   return;
 }
 
+Future<void> delBookmark(docID, subDocID) async {
+  users.doc(docID).collection("MyBookMark").doc(subDocID).delete().then(
+        (value) => print("Document deleted"),
+        onError: (e) => print("Error updating document $e"),
+      );
+}
+
 Future<void> saveLessons(title, description) async {
   var collection = FirebaseFirestore.instance
       .collection("Users")
