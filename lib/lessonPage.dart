@@ -91,7 +91,7 @@ class _lessonState extends State<lesson> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 40,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),

@@ -100,7 +100,7 @@ class _bookmarkState extends State<bookmark> {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )),
                 SizedBox(
-                  height: 10,
+                  height: 40,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
