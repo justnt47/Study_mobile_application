@@ -85,6 +85,13 @@ Future<void> saveLessons(title, description) async {
   return;
 }
 
+Future<void> delLesson(docID, subDocID) async {
+  await users.doc(docID).collection("MyLessons").doc(subDocID).delete().then(
+        (value) => print("Document deleted"),
+        onError: (e) => print("Error updating document $e"),
+      );
+}
+
 printDoc() async {
   var collection = FirebaseFirestore.instance
       .collection("Users")
