@@ -99,7 +99,7 @@ class _lessonState extends State<lesson> {
                       ? StreamBuilder(
                           stream: Users.doc(docID)
                               .collection("MyLessons")
-                              .where("isBooked", isEqualTo: true)
+                              .where("isMylesson", isEqualTo: true)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
@@ -118,10 +118,12 @@ class _lessonState extends State<lesson> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(25)),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Color.fromARGB(255, 173, 173, 173),
+                                            color: Color.fromARGB(
+                                                255, 173, 173, 173),
                                             offset: const Offset(0.0, 0.0),
                                             blurRadius: 3.0,
                                             spreadRadius: 0.2,
@@ -140,23 +142,30 @@ class _lessonState extends State<lesson> {
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
-                                            color: const Color.fromARGB(255, 0, 0, 0),
+                                            color: const Color.fromARGB(
+                                                255, 0, 0, 0),
                                           ),
                                         ),
                                         trailing: ElevatedButton(
                                           onPressed: () {
                                             setState(() {
-                                              saveLessons(topicIndex["title"], topicIndex["description"]);
-                                              print('สมัครคอร์สเรียน: ${topicIndex['title']}');
-                                              
+                                              saveLessons(topicIndex["title"],
+                                                  topicIndex["description"]);
+                                              print(
+                                                  'สมัครคอร์สเรียน: ${topicIndex['title']}');
+
                                               // ในส่วนนี้คุณอาจต้องเพิ่มโค้ดเพื่อทำการนำเข้าหน้าต่างหรือการเปลี่ยนหน้าตามที่คุณต้องการ
                                             });
                                           },
                                           style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all(Colors.blue),
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.blue),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(18.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
                                               ),
                                             ),
                                           ),

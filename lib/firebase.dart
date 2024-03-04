@@ -48,7 +48,7 @@ Future<void> saveBookmark(title, description) async {
 }
 
 Future<void> delBookmark(docID, subDocID) async {
-  users.doc(docID).collection("MyBookMark").doc(subDocID).delete().then(
+  await users.doc(docID).collection("MyBookMark").doc(subDocID).delete().then(
         (value) => print("Document deleted"),
         onError: (e) => print("Error updating document $e"),
       );
@@ -75,7 +75,7 @@ Future<void> saveLessons(title, description) async {
     users
         .doc(docID)
         .collection("MyLessons")
-        .add({"title": title, "description": description, "is": true});
+        .add({"title": title, "description": description, "isMylesson": true});
 
     print("adding data successful data : \"$title\" at $docID");
   } else {

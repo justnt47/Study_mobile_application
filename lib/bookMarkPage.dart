@@ -34,6 +34,7 @@ class _bookmarkState extends State<bookmark> {
   @override
   void initState() {
     super.initState();
+
     // Call the async method in initState
     _initializeData();
   }
@@ -59,7 +60,7 @@ class _bookmarkState extends State<bookmark> {
         docID = doc.docs.first.id;
       });
 
-      print(docID);
+      print("docID: ${docID}");
     } catch (e) {
       print(e.toString());
     }
@@ -74,9 +75,10 @@ class _bookmarkState extends State<bookmark> {
           .where("title", isEqualTo: title);
 
       var doc = await collection.get();
-      print(subDocID);
 
       subDocID = doc.docs.first.id;
+      print("lenght subDocID: ${doc.docs.length}");
+      print("subDocID: $subDocID");
     } catch (e) {
       print(e.toString());
     }
@@ -162,7 +164,6 @@ class _bookmarkState extends State<bookmark> {
                                             onPressed: () {
                                               getSubDocID(topicIndex["title"]);
                                               delBookmark(docID, subDocID);
-                                              setState(() {});
                                             },
                                           ),
                                         ),
