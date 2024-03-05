@@ -203,7 +203,7 @@ class _settState extends State<sett> {
                       ),
                       ListTile(
                         leading: Icon(
-                          Icons.logout,
+                          Icons.add,
                           size: 35,
                         ),
                         title: Text(
