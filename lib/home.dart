@@ -145,7 +145,7 @@ class _homeState extends State<home> {
                     SizedBox(height: 10),
                     Text(
                       'LEARNING FUTURE',
-                      style: GoogleFonts.permanentMarker(
+                      style: GoogleFonts.exo2(
                           fontSize: 30, color: Colors.blueAccent),
                     ),
                     Container(
@@ -214,7 +214,8 @@ class _homeState extends State<home> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
-                                          color: Colors.white,
+                                          color: const Color.fromARGB(
+                                            255, 255, 255, 255),
                                         ),
                                       ),
                                       trailing: ElevatedButton(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test_any_code/firebase.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 final auth = FirebaseAuth.instance;
 CollectionReference Users = FirebaseFirestore.instance.collection("Users");
@@ -96,8 +98,9 @@ class _bookmarkState extends State<bookmark> {
               children: [
                 Center(
                     child: Text(
-                  "My Bookmark",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  "MY BOOKMARK",
+                  style: GoogleFonts.exo2(
+                          fontSize: 30, color: Colors.blueAccent),
                 )),
                 SizedBox(
                   height: 40,
@@ -148,6 +151,16 @@ class _bookmarkState extends State<bookmark> {
                                             spreadRadius: 0.0,
                                           ), //BoxShadow
                                         ],
+                                        gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          const Color.fromARGB(
+                                              255, 71, 166, 244),
+                                          const Color.fromARGB(
+                                              255, 62, 39, 176),
+                                        ],
+                                      ),
                                       ),
                                       child: ListTile(
                                         leading: CircleAvatar(
@@ -173,7 +186,7 @@ class _bookmarkState extends State<bookmark> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                             color: const Color.fromARGB(
-                                                255, 0, 0, 0),
+                                            255, 255, 255, 255),
                                           ),
                                         ),
                                         trailing: ElevatedButton(

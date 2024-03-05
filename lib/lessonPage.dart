@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:test_any_code/firebase.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 final auth = FirebaseAuth.instance;
 CollectionReference Users = FirebaseFirestore.instance.collection("Users");
@@ -86,8 +88,9 @@ class _lessonState extends State<lesson> {
               children: [
                 Center(
                   child: Text(
-                    "My Learning",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    "MY LEARNING",
+                    style: GoogleFonts.exo2(
+                          fontSize: 30, color: Colors.blueAccent),
                   ),
                 ),
                 SizedBox(
@@ -135,6 +138,16 @@ class _lessonState extends State<lesson> {
                                             spreadRadius: 0.0,
                                           ),
                                         ],
+                                        gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          const Color.fromARGB(
+                                              255, 71, 166, 244),
+                                          const Color.fromARGB(
+                                              255, 62, 39, 176),
+                                        ],
+                                      ),
                                       ),
                                       child: ListTile(
                                         title: Text(
@@ -143,7 +156,7 @@ class _lessonState extends State<lesson> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                             color: const Color.fromARGB(
-                                                255, 0, 0, 0),
+                                            255, 255, 255, 255),
                                           ),
                                         ),
                                         trailing: ElevatedButton(
@@ -152,7 +165,7 @@ class _lessonState extends State<lesson> {
                                               saveLessons(topicIndex["title"],
                                                   topicIndex["description"]);
                                               print(
-                                                  'สมัครคอร์สเรียน: ${topicIndex['title']}');
+                                                  'กำลังเรียน: ${topicIndex['title']}');
 
                                               // ในส่วนนี้คุณอาจต้องเพิ่มโค้ดเพื่อทำการนำเข้าหน้าต่างหรือการเปลี่ยนหน้าตามที่คุณต้องการ
                                             });
@@ -160,7 +173,7 @@ class _lessonState extends State<lesson> {
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    Colors.blue),
+                                                    Colors.white),
                                             shape: MaterialStateProperty.all<
                                                 RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
@@ -170,11 +183,11 @@ class _lessonState extends State<lesson> {
                                             ),
                                           ),
                                           child: Text(
-                                            'Start Learning',
+                                            'Continue studying',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                              color: Colors.green,
                                             ),
                                           ),
                                         ),
