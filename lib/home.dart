@@ -99,7 +99,6 @@ class _homeState extends State<home> {
                         width: double.infinity,
                       ),
                     ),
-                    //  ควย
                   ),
                   Container(
                     decoration: BoxDecoration(
