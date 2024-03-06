@@ -99,6 +99,7 @@ class _homeState extends State<home> {
                         width: double.infinity,
                       ),
                     ),
+                    //  ควย
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -148,6 +149,7 @@ class _homeState extends State<home> {
                       style: GoogleFonts.exo2(
                           fontSize: 30, color: Colors.blueAccent),
                     ),
+                    SizedBox(height: 20),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Container(
