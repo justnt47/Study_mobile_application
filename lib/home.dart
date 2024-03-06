@@ -6,14 +6,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:test_any_code/firebase.dart';
+import 'package:provider/provider.dart';
+import 'package:test_any_code/main.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 
   @override
   State<home> createState() => _homeState();
+}
+
+class BookmarkProvider extends ChangeNotifier {
+  List<bool> isbookmark = [false, false, false]; // เริ่มต้นสถานะปุ่ม bookmark_add
+
+  void toggleBookmark(int index) {
+    isbookmark[index] = !isbookmark[index];
+    notifyListeners(); // แจ้งเกิดการเปลี่ยนแปลงข้อมูล
+  }
 }
 
 class _homeState extends State<home> {
@@ -23,6 +33,15 @@ class _homeState extends State<home> {
 
   void toggleBookmark(int index) {
     isbookmark[index] = !isbookmark[index];
+  }
+
+
+  void main() {
+    runApp(
+      ChangeNotifierProvider(create: (context) => BookmarkProvider(),
+      child: MyApp(),
+      ),
+    );
   }
 
   int screenIndex = 0;

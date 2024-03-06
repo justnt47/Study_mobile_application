@@ -6,7 +6,6 @@ import 'package:path/path.dart';
 import 'package:test_any_code/firebase.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 final auth = FirebaseAuth.instance;
 CollectionReference Users = FirebaseFirestore.instance.collection("Users");
 var collection = FirebaseFirestore.instance
@@ -26,6 +25,24 @@ class _lessonState extends State<lesson> {
   String? docID;
   String? subDocID;
   List<bool> isbookmark = [false, false, false];
+
+  
+
+  void deleteLesson(String title) async {
+    try {
+      await Users.doc(docID) // ใช้ docID ที่ได้มาก่อนหน้านี้
+          .collection("MyLessons")
+          .where("title", isEqualTo: title)
+          .get()
+          .then((snapshot) {
+        snapshot.docs.forEach((doc) {
+          doc.reference.delete();
+        });
+      });
+    } catch (e) {
+      print("Error deleting lesson: $e");
+    }
+  }
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
@@ -90,7 +107,7 @@ class _lessonState extends State<lesson> {
                   child: Text(
                     "MY LEARNING",
                     style: GoogleFonts.exo2(
-                          fontSize: 30, color: Colors.blueAccent),
+                        fontSize: 30, color: Colors.blueAccent),
                   ),
                 ),
                 SizedBox(
@@ -139,15 +156,15 @@ class _lessonState extends State<lesson> {
                                           ),
                                         ],
                                         gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          const Color.fromARGB(
-                                              255, 71, 166, 244),
-                                          const Color.fromARGB(
-                                              255, 62, 39, 176),
-                                        ],
-                                      ),
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            const Color.fromARGB(
+                                                255, 71, 166, 244),
+                                            const Color.fromARGB(
+                                                255, 62, 39, 176),
+                                          ],
+                                        ),
                                       ),
                                       child: ListTile(
                                         title: Text(
@@ -156,40 +173,76 @@ class _lessonState extends State<lesson> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                             color: const Color.fromARGB(
-                                            255, 255, 255, 255),
+                                                255, 255, 255, 255),
                                           ),
                                         ),
-                                        trailing: ElevatedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              saveLessons(topicIndex["title"],
-                                                  topicIndex["description"]);
-                                              print(
-                                                  'กำลังเรียน: ${topicIndex['title']}');
-
-                                              // ในส่วนนี้คุณอาจต้องเพิ่มโค้ดเพื่อทำการนำเข้าหน้าต่างหรือการเปลี่ยนหน้าตามที่คุณต้องการ
-                                            });
-                                          },
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.white),
-                                            shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
+                                        trailing: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Confirm Delete'),
+                                                        content: Text(
+                                                            'Are you sure you want to delete?'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              deleteLesson(
+                                                                  topicIndex[
+                                                                      'title']);
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text(
+                                                              'Delete',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .red),
+                                                            ),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child:
+                                                                Text('Cancel'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                              },
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.red),
+                                                shape:
+                                                    MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            18.0),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Delete',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
                                               ),
                                             ),
-                                          ),
-                                          child: Text(
-                                            'Continue studying',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green,
-                                            ),
-                                          ),
+                                          ],
                                         ),
                                       ),
                                     ),

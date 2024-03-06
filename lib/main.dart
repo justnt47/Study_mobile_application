@@ -18,6 +18,7 @@ void main() async {
       scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
     ),
     home: authPage(),
+    
   ));
 }
 
