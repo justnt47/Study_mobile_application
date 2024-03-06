@@ -17,15 +17,6 @@ class home extends StatefulWidget {
   State<home> createState() => _homeState();
 }
 
-class BookmarkProvider extends ChangeNotifier {
-  List<bool> isbookmark = [false, false, false]; // เริ่มต้นสถานะปุ่ม bookmark_add
-
-  void toggleBookmark(int index) {
-    isbookmark[index] = !isbookmark[index];
-    notifyListeners(); // แจ้งเกิดการเปลี่ยนแปลงข้อมูล
-  }
-}
-
 class _homeState extends State<home> {
   String? selectedCourse;
   String? learningCourse;
@@ -33,15 +24,6 @@ class _homeState extends State<home> {
 
   void toggleBookmark(int index) {
     isbookmark[index] = !isbookmark[index];
-  }
-
-
-  void main() {
-    runApp(
-      ChangeNotifierProvider(create: (context) => BookmarkProvider(),
-      child: MyApp(),
-      ),
-    );
   }
 
   int screenIndex = 0;
