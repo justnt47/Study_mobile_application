@@ -20,7 +20,15 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   String? selectedCourse;
   String? learningCourse;
-  List<bool> isbookmark = [false, false, false];
+  List<bool> isbookmark = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
 
   void toggleBookmark(int index) {
     isbookmark[index] = !isbookmark[index];
@@ -168,11 +176,11 @@ class _homeState extends State<home> {
                                   child: Container(
                                     margin: EdgeInsets.only(bottom: 10),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(15),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.5),
-                                          spreadRadius: 1,
+                                          spreadRadius: 0.2,
                                           blurRadius: 3,
                                           offset: Offset(0, 2),
                                         ),
@@ -216,7 +224,7 @@ class _homeState extends State<home> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                           color: const Color.fromARGB(
-                                            255, 255, 255, 255),
+                                              255, 255, 255, 255),
                                         ),
                                       ),
                                       trailing: ElevatedButton(
