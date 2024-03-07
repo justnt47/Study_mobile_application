@@ -46,6 +46,11 @@ dependencies:
   provider: ^6.1.2
   basic_utils: ^5.7.0
   firebase_database: ^10.4.8
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  image_path: "images/logo.png"
 
 dev_dependencies:
   flutter_test:
