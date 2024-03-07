@@ -30,7 +30,8 @@ class _homePageState extends State<homePage> {
         backgroundColor: Color.fromARGB(255, 118, 200, 241),
         child: IconButton(
           icon: Icon(
-            Icons.add,
+            Icons.notifications_on,
+            color: Colors.yellow,
           ),
           onPressed: () {
             setState(() {
