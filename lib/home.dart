@@ -44,13 +44,7 @@ class _homeState extends State<home> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 20.0, left: 10, right: 10),
-        decoration: BoxDecoration(
-            /* gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.white, Colors.white],
-          ), */
-            ),
+        decoration: BoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -140,13 +134,13 @@ class _homeState extends State<home> {
                       offset: const Offset(0.0, 0.0),
                       blurRadius: 5.0,
                       spreadRadius: 2.0,
-                    ), //BoxShadow
+                    ),
                     BoxShadow(
                       color: Colors.white,
                       offset: const Offset(0.0, 0.0),
                       blurRadius: 0.0,
                       spreadRadius: 0.0,
-                    ), //BoxShadow
+                    ),
                   ],
                 ),
                 child: Column(
@@ -157,116 +151,127 @@ class _homeState extends State<home> {
                       style: GoogleFonts.exo2(
                           fontSize: 30, color: Colors.blueAccent),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: StreamBuilder(
-                        stream: lessonCollection.snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              itemCount: snapshot.data!.docs.length,
-                              shrinkWrap: true,
-                              itemBuilder: ((context, index) {
-                                var topicIndex = snapshot.data!.docs[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    //---- เรียกฟังก์ชันชื่อ showDetail ด้านล่าง ----
-                                    //showDetail(topicIndex);
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.5),
-                                          spreadRadius: 0.2,
-                                          blurRadius: 3,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
-                                      gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          const Color.fromARGB(
-                                              255, 71, 166, 244),
-                                          const Color.fromARGB(
-                                              255, 62, 39, 176),
-                                        ],
-                                      ),
-                                    ),
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 255, 255, 255),
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.bookmark_add,
-                                            color: isbookmark[index]
-                                                ? Color.fromARGB(
-                                                    255, 255, 204, 50)
-                                                : Colors.grey,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: StreamBuilder(
+                            stream: lessonCollection.snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: ((context, index) {
+                                    var topicIndex = snapshot.data!.docs[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        //---- Call your function named showDetail below ----
+                                        //showDetail(topicIndex);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
+                                              spreadRadius: 0.2,
+                                              blurRadius: 3,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                          gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              const Color.fromARGB(
+                                                  255, 71, 166, 244),
+                                              const Color.fromARGB(
+                                                  255, 62, 39, 176),
+                                            ],
                                           ),
-                                          onPressed: () {
-                                            setState(() {
-                                              saveBookmark(topicIndex["title"],
-                                                  topicIndex["description"]);
-                                              isbookmark[index] =
-                                                  !isbookmark[index];
-                                            });
-                                          },
                                         ),
-                                      ),
-                                      title: Text(
-                                        topicIndex['title'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                        ),
-                                      ),
-                                      trailing: ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            saveLessons(topicIndex["title"],
-                                                topicIndex["description"]);
-                                            print(
-                                              'สมัครคอร์สเรียน: ${topicIndex['title']}',
-                                            );
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.blue),
-                                          shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.bookmark_add,
+                                                color: isbookmark[index]
+                                                    ? Color.fromARGB(
+                                                        255, 255, 204, 50)
+                                                    : Colors.grey,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  saveBookmark(
+                                                      topicIndex["title"],
+                                                      topicIndex[
+                                                          "description"]);
+                                                  isbookmark[index] =
+                                                      !isbookmark[index];
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          title: Text(
+                                            topicIndex['title'],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                            ),
+                                          ),
+                                          trailing: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                saveLessons(topicIndex["title"],
+                                                    topicIndex["description"]);
+                                                print(
+                                                  'สมัครคอร์สเรียน: ${topicIndex['title']}',
+                                                );
+                                              });
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.blue),
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          18.0),
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              'Start Learning',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        child: Text(
-                                          'Start Learning',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  }),
                                 );
-                              }),
-                            );
-                          } else {
-                            return Center(child: Text('No data'));
-                          }
-                        },
+                              } else {
+                                return Center(child: Text('No data'));
+                              }
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ],
