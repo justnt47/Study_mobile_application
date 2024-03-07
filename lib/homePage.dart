@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:test_any_code/bookMarkPage.dart';
 import 'package:test_any_code/home.dart';
 import 'package:test_any_code/lessonPage.dart';
 import 'package:test_any_code/settingPage.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_core/firebase_core.dart';
-
 
 class homePage extends StatefulWidget {
   homePage({super.key});
@@ -15,6 +15,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  final _formKey = GlobalKey<FormState>();
   int screenIndex = 0;
 
   //------ หน้าจอแต่ละหน้า ------
@@ -24,8 +25,6 @@ class _homePageState extends State<homePage> {
     bookmark(),
     sett(),
   ];
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +112,10 @@ class _homePageState extends State<homePage> {
   }
 
   void _showFeedbackDialog(BuildContext context) {
-    TextEditingController feedbackController = TextEditingController();
-
+    TextEditingController topic_feedbackController = TextEditingController();
+    TextEditingController des_feedbackController = TextEditingController();
+    CollectionReference feedBackCollection =
+        FirebaseFirestore.instance.collection("feedBacks");
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -124,7 +125,26 @@ class _homePageState extends State<homePage> {
             child: ListBody(
               children: <Widget>[
                 Text('Please provide your feedback here:'),
-                TextField()
+                TextFormField(
+                  controller: topic_feedbackController,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Topic',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) return 'Please enter an Topic';
+                  },
+                ),
+                TextFormField(
+                  controller: des_feedbackController,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) return 'Please enter an Description';
+                  },
+                )
               ],
             ),
           ),
@@ -137,7 +157,13 @@ class _homePageState extends State<homePage> {
             ),
             TextButton(
               onPressed: () {
-                
+                feedBackCollection.add({
+                  "topic": topic_feedbackController.text,
+                  "description": des_feedbackController.text
+                });
+                topic_feedbackController.clear();
+                des_feedbackController.clear();
+                Navigator.pop(context);
               },
               child: Text('Submit'),
             ),
