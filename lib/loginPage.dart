@@ -87,10 +87,10 @@ class _loginPageState extends State<loginPage> {
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       // border: Border.all(color: Colors.black),
-                      color: Color.fromARGB(195, 0, 74, 135),
+                      color: Color.fromARGB(195, 199, 218, 234),
                       shape: BoxShape.circle),
                   child: Image.asset(
-                    'images/Logo.png',
+                    'images/Logonew1.png',
                   ),
                 ),
               ),
