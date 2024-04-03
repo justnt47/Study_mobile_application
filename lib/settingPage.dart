@@ -178,7 +178,7 @@ class _settState extends State<sett> {
                         },
                         // onTap: () => Navigator.pop(context),
                       ),
-                      ListTile(
+                       /*ListTile(
                         leading: Icon(
                           Icons.logout,
                           size: 35,
@@ -196,12 +196,9 @@ class _settState extends State<sett> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyTest()));
-                          // Navigator.pop(context);
                         },
-
-                        // onTap: () => Navigator.pop(context),
-                      ),
-                      ListTile(
+                      ), */
+                       ListTile(
                         leading: Icon(
                           Icons.add,
                           size: 35,
@@ -219,11 +216,8 @@ class _settState extends State<sett> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => addForm()));
-                          // Navigator.pop(context);
                         },
-
-                        // onTap: () => Navigator.pop(context),
-                      ),
+                      ), 
                     ],
                   ),
                 ),
